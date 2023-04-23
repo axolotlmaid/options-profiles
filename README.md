@@ -3,9 +3,9 @@ Options Profiles is a Minecraft mod that lets you load and save your options as 
 > Using Options Profiles to change video settings with Sodium installed *will* not work!
 
 ## Features
+> Profiles are saved in a folder called "options-profiles" in the specified ".minecraft" directory.
 - Load Profiles
 - Save Current Options
-> Profiles are saved in a folder called "options-profiles" in the specified ".minecraft" directory.
 - Delete Profiles
 - Profiles List
 - Edit Profiles Names
