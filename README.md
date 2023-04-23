@@ -11,5 +11,5 @@ Options Profiles is a Minecraft mod that lets you load and save your options as 
 - Edit Profiles Names
 
 ## Images
-![Profiles List](https://raw.githubusercontent.com/AxolotlMaid/options-profiles/fabric-1.19.2/images/profiles-list.png)
-![Edit Profile Screen](https://raw.githubusercontent.com/AxolotlMaid/options-profiles/fabric-1.19.2/images/edit-profile.png)
+![Profiles List](https://raw.githubusercontent.com/AxolotlMaid/options-profiles/fabric-1.19/images/profiles-list.png)
+![Edit Profile Screen](https://raw.githubusercontent.com/AxolotlMaid/options-profiles/fabric-1.19/images/edit-profile.png)
