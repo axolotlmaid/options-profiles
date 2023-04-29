@@ -22,13 +22,14 @@ public class ProfilesScreen extends Screen {
         this.addSelectableChild(this.profilesList);
 
         // Bottom Buttons
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155, this.height - 29, 150, 20, Text.translatable("gui.options-profiles.save-current-options"), (button -> {
+        this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("gui.options-profiles.save-current-options"), (button) -> {
             new Profiles().createProfile();
             this.profilesList.refreshEntries();
-        })));
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 155 + 160, this.height - 29, 150, 20, ScreenTexts.DONE, (button) -> {
+        }).position(this.width / 2 - 155, this.height - 29).size(150, 20).build());
+
+        this.addDrawableChild(new ButtonWidget.Builder(ScreenTexts.DONE, (button) -> {
             this.client.setScreen(this.parent);
-        }));
+        }).position(this.width / 2 - 155 + 160, this.height - 29).size(150, 20).build());
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {

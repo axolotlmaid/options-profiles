@@ -28,6 +28,7 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
 
         for (File profile : Objects.requireNonNull(profilesDirectory.listFiles())) {
             String profileName = FilenameUtils.removeExtension(profile.getName());
+            this.addEntry(new ProfilesListWidget.ProfileEntry(Text.of(profileName)));
 
             // Sodium
             // This code doesn't work yet
@@ -60,16 +61,17 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
 
         ProfileEntry(final Text profileName) {
             this.profileName = profileName;
-            this.editButton = new ButtonWidget(0, 0, 75, 20, Text.translatable("gui.options-profiles.edit-profile-text"), (button) -> {
+            this.editButton = new ButtonWidget.Builder(Text.translatable("gui.options-profiles.edit-profile-text"), (button) -> {
                 ProfilesListWidget.this.client.setScreen(new EditProfileScreen(parent, profileName));
-            });
-            this.loadButton = new ButtonWidget(0, 0, 75, 20, Text.translatable("gui.options-profiles.load-profile-text"), (button) -> {
+            }).position(0, 0).size(75, 20).build();
+
+            this.loadButton = new ButtonWidget.Builder(Text.translatable("gui.options-profiles.load-profile-text"), (button) -> {
                 new Profiles().overwriteOptionsFile(profileName.getString());
 
                 client.options.load();
                 client.worldRenderer.reload();
                 client.getSoundManager().reloadSounds();
-            });
+            }).position(0, 0).size(75, 20).build();
         }
 
         public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
@@ -80,12 +82,10 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
             Objects.requireNonNull(ProfilesListWidget.this.client.textRenderer);
             var10000.draw(matrices, profileName, x, (float)(var10004 - 9 / 2), 16777215);
 
-            this.editButton.x = x + 115;
-            this.editButton.y = y;
+            this.editButton.setPos(x + 115, y);
             this.editButton.render(matrices, mouseX, mouseY, tickDelta);
 
-            this.loadButton.x = x + 190;
-            this.loadButton.y = y;
+            this.loadButton.setPos(x + 190, y);
             this.loadButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 

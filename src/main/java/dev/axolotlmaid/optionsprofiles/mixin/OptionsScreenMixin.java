@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.ControlsOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,8 +22,8 @@ public class OptionsScreenMixin extends Screen {
 	@Inject(at = @At("TAIL"), method = "init")
 	private void init(CallbackInfo info) {
 		MinecraftClient minecraft = MinecraftClient.getInstance();
-		this.addDrawableChild(new ButtonWidget(5, 5, 100, 20, Text.translatable("gui.options-profiles.profiles-menu-text"), (button -> {
+		this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("gui.options-profiles.profiles-menu-text"), (button) -> {
 			minecraft.setScreen(new ProfilesScreen(this));
-		})));
+		}).position(5, 5).size(100, 20).build());
 	}
 }

@@ -1,6 +1,7 @@
 package dev.axolotlmaid.optionsprofiles.gui;
 
 import dev.axolotlmaid.optionsprofiles.Profiles;
+import net.minecraft.client.gui.screen.GameModeSelectionScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -23,24 +24,24 @@ public class EditProfileScreen extends Screen {
         TextFieldWidget textfield = new TextFieldWidget(textRenderer, this.width / 2 - 102, this.height / 4 + 24, 204, 20, Text.translatable("profile-name-text-field"));
         this.addDrawableChild(textfield);
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 50, this.height / 4 + 50, 100, 20, Text.translatable("gui.options-profiles.update-profile-text"), (button) -> {
+        this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("gui.options-profiles.update-profile-text"), (button) -> {
             new Profiles().writeOptionsFileToProfile(profileName.getString());
             this.client.setScreen(this.parent);
-        }));
+        }).position(this.width / 2 - 50, this.height / 4 + 50).size(100, 20).build());
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 65, 200, 20, Text.translatable("gui.options-profiles.save-profile-text"), (button) -> {
+        this.addDrawableChild( new ButtonWidget.Builder(Text.translatable("gui.options-profiles.save-profile-text"), (button) -> {
             new Profiles().editProfile(profileName.getString(), textfield.getText());
             this.client.setScreen(this.parent);
-        }));
+        }).position(this.width / 2 - 100, this.height - 65).size(200, 20).build());
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height - 40, 200, 20, ScreenTexts.CANCEL, (button) -> {
+        this.addDrawableChild(new ButtonWidget.Builder(ScreenTexts.CANCEL, (button) -> {
             this.client.setScreen(this.parent);
-        }));
+        }).position(this.width / 2 - 100, this.height - 40).size(200, 20).build());
 
-        this.addDrawableChild(new ButtonWidget(5, this.height - 25, 100, 20, Text.translatable("gui.options-profiles.delete-profile-text"), (button) -> {
+        this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("gui.options-profiles.delete-profile-text"), (button) -> {
             new Profiles().deleteProfile(profileName.getString());
             this.client.setScreen(this.parent);
-        }));
+        }).position(5, this.height - 25).size(100, 20).build());
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
