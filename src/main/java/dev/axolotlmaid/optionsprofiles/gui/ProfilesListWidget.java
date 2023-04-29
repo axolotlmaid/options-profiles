@@ -28,6 +28,7 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
 
         for (File profile : Objects.requireNonNull(profilesDirectory.listFiles())) {
             String profileName = FilenameUtils.removeExtension(profile.getName());
+            this.addEntry(new ProfilesListWidget.ProfileEntry(Text.of(profileName)));
 
             // Sodium
             // This code doesn't work yet
