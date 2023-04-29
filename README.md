@@ -1,4 +1,4 @@
-# Options Profiles
+# Options Profiles v1.0.0 (1.19 - 1.19.2)
 Options Profiles is a Minecraft mod that lets you load and save your options as profiles from in-game.
 > Using Options Profiles to change video settings with **Sodium** installed *will* not work!
 
