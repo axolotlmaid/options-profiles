@@ -1,4 +1,4 @@
-# Options Profiles
+# Options Profiles ![modrinth downloads](https://img.shields.io/modrinth/dt/DnyS3EEW?color=gree&label=modrinth%20downloads&logo=modrinth) ![curseforge downloads](https://cf.way2muchnoise.eu/full_853719_downloads.svg)
 Options Profiles is a Minecraft mod that lets you load and save your options as profiles from in-game.
 > Using Options Profiles to change video settings with **Sodium** installed *will* not work!
 
