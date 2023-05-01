@@ -1,5 +1,6 @@
 {
   "gui.options-profiles.profiles-menu-text": "Profiles Menu",
+  "gui.options-profiles.profile-name-text": "Profile Name",
   "gui.options-profiles.edit-profiles-screen-text": "Editing Profile: ",
   "gui.options-profiles.delete-profile-text": "Delete Profile",
   "gui.options-profiles.save-profile-text": "Save Profile",
