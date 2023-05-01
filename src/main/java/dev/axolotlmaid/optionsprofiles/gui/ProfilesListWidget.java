@@ -82,10 +82,12 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
             Objects.requireNonNull(ProfilesListWidget.this.client.textRenderer);
             var10000.draw(matrices, profileName, x, (float)(var10004 - 9 / 2), 16777215);
 
-            this.editButton.setPos(x + 115, y);
+            this.editButton.setX(x + 115);
+            this.editButton.setY(y);
             this.editButton.render(matrices, mouseX, mouseY, tickDelta);
 
-            this.loadButton.setPos(x + 190, y);
+            this.loadButton.setX(x + 190);
+            this.loadButton.setY(y);
             this.loadButton.render(matrices, mouseX, mouseY, tickDelta);
         }
 

@@ -5,6 +5,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenTexts;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 
 public class ProfilesScreen extends Screen {
@@ -35,7 +37,7 @@ public class ProfilesScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         this.profilesList.render(matrices, mouseX, mouseY, delta);
-        drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 8, 16777215);
+        drawCenteredTextWithShadow(matrices, this.textRenderer, this.title.asOrderedText(), this.width / 2, 8, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
     }
 }
