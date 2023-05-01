@@ -46,7 +46,7 @@ public class EditProfileScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         drawCenteredText(matrices, this.textRenderer, Text.of(this.title.getString() + profileName.getString()), this.width / 2  , 8, 16777215);
-        drawCenteredText(matrices, this.textRenderer, "Profile Name", this.width / 2 - 70, this.height / 4 + 10, 16777215);
+        drawCenteredText(matrices, this.textRenderer, Text.translatable("gui.options-profiles.profile-name-text"), this.width / 2 - 70, this.height / 4 + 10, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
     }
 }
