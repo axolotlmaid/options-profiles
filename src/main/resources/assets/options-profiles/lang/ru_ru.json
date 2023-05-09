@@ -1,0 +1,14 @@
+{
+  "gui.options-profiles.profiles-menu-text": "Профили",
+  "gui.options-profiles.profile-name-text": "Имя профиля",
+  "gui.options-profiles.edit-profiles-screen-text": "Изменение профиля: ",
+  "gui.options-profiles.delete-profile-text": "Удалить профиль",
+  "gui.options-profiles.save-profile-text": "Сохранить",
+  "gui.options-profiles.update-profile-text": "Перезаписать",
+  "gui.options-profiles.save-current-options": "Сохранить настройки",
+  "gui.options-profiles.load-profile-text": "Выбрать",
+  "gui.options-profiles.edit-profile-text": "Изменить",
+
+  "modmenu.summaryTranslation.options-profiles": "Cохраняйте и загружайте профили настроек, не выходя из игры.",
+  "modmenu.descriptionTranslation.options-profiles": "Мод, позволяющий сохранять профили текущих настроек и загружать их, не выходя из игры."
+}
