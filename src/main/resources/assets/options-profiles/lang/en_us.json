@@ -4,8 +4,11 @@
   "gui.options-profiles.edit-profiles-screen-text": "Editing Profile: ",
   "gui.options-profiles.delete-profile-text": "Delete Profile",
   "gui.options-profiles.save-profile-text": "Save Profile",
-  "gui.options-profiles.update-profile-text": "Update Profile",
+  "gui.options-profiles.update-profile-text": "Overwrite",
   "gui.options-profiles.save-current-options": "Save Current Options",
-  "gui.options-profiles.load-profile-text": "Load",
-  "gui.options-profiles.edit-profile-text": "Edit"
+  "gui.options-profiles.load-profile-text": "✔ (Load)",
+  "gui.options-profiles.edit-profile-text": "✎ (Edit)",
+
+  "modmenu.summaryTranslation.options-profiles": "Save and load settings profiles without leaving the game.",
+  "modmenu.descriptionTranslation.options-profiles": "A mod that allows you to save profiles of current settings and load them without leaving the game."
 }
