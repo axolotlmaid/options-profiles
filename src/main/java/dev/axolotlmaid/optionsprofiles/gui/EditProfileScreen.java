@@ -1,6 +1,7 @@
 package dev.axolotlmaid.optionsprofiles.gui;
 
 import dev.axolotlmaid.optionsprofiles.Profiles;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.GameModeSelectionScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -45,10 +46,11 @@ public class EditProfileScreen extends Screen {
         }).position(5, this.height - 25).size(100, 20).build());
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        drawCenteredTextWithShadow(matrices, this.textRenderer, Text.of(this.title.getString() + profileName.getString()).asOrderedText(), this.width / 2  , 8, 16777215);
-        drawCenteredTextWithShadow(matrices, this.textRenderer, Text.translatable("gui.options-profiles.profile-name-text").asOrderedText(), this.width / 2 - 70, this.height / 4 + 10, 16777215);
-        super.render(matrices, mouseX, mouseY, delta);
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        context.drawCenteredTextWithShadow(textRenderer, Text.of(this.title.getString() + profileName.getString()).asOrderedText(), this.width / 2  , 8, 16777215);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("gui.options-profiles.profile-name-text").asOrderedText(), this.width / 2 - 70, this.height / 4 + 10, 16777215);
+        super.render(context, mouseX, mouseY, delta);
     }
 }

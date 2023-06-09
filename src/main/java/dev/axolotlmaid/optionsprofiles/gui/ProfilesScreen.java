@@ -1,6 +1,7 @@
 package dev.axolotlmaid.optionsprofiles.gui;
 
 import dev.axolotlmaid.optionsprofiles.Profiles;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -34,10 +35,11 @@ public class ProfilesScreen extends Screen {
         }).position(this.width / 2 - 155 + 160, this.height - 29).size(150, 20).build());
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        this.profilesList.render(matrices, mouseX, mouseY, delta);
-        drawCenteredTextWithShadow(matrices, this.textRenderer, this.title.asOrderedText(), this.width / 2, 8, 16777215);
-        super.render(matrices, mouseX, mouseY, delta);
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        this.profilesList.render(context, mouseX, mouseY, delta);
+        context.drawCenteredTextWithShadow(textRenderer, this.title.asOrderedText(), this.width / 2, 8, 16777215);
+        super.render(context, mouseX, mouseY, delta);
     }
 }
