@@ -1,6 +1,7 @@
 package dev.axolotlmaid.optionsprofiles.gui;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import dev.axolotlmaid.optionsprofiles.Profiles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,6 +12,8 @@ import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
+import net.minecraft.resource.ResourcePackManager;
+import net.minecraft.resource.ResourcePackProfile;
 import net.minecraft.text.Text;
 import org.apache.commons.io.FilenameUtils;
 
@@ -63,6 +66,22 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
                 client.options.load();
                 client.worldRenderer.reload();
                 client.getSoundManager().reloadSounds();
+
+                List<String> builtInResourcePacks = Arrays.asList("vanilla", "programmer_art", "fabric", "high_contrast");
+
+                for (ResourcePackProfile resourcePack : client.getResourcePackManager().getEnabledProfiles()) {
+                    if (!(builtInResourcePacks.contains(resourcePack.getName()))) {
+                        client.getResourcePackManager().disable(resourcePack.getName());
+                    }
+                }
+
+                for (String resourcePackName : client.options.resourcePacks) {
+                    if (!(builtInResourcePacks.contains(resourcePackName))) {
+                        client.getResourcePackManager().enable(resourcePackName);
+                    }
+                }
+
+                client.reloadResources();
             }).position(0, 0).size(75, 20).build();
         }
 
@@ -70,7 +89,7 @@ public class ProfilesListWidget extends ElementListWidget<ProfilesListWidget.Ent
         public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             TextRenderer textRenderer = ProfilesListWidget.this.client.textRenderer;
             int textY = y + entryHeight / 2;
-            context.drawText(textRenderer, profileName, x, textY - 9 / 2, 16777215, true);
+            context.drawText(textRenderer, profileName, x - 50, textY - 9 / 2, 16777215, true);
 
             this.editButton.setX(x + 115);
             this.editButton.setY(y);

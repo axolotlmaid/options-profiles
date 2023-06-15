@@ -66,30 +66,6 @@ public class Profiles {
 
             writer.close();
             reader.close();
-
-            // Sodium
-            // The code below doesn't work
-//            if (FabricLoader.getInstance().isModLoaded("sodium")) {
-//                System.out.println("Found Sodium in mods.");
-//
-//                File sodiumOptions = new File("config/sodium-options.json");
-//                File sodiumOptionsProfile = new File(path + profileName + "-sodium-options" + ".json");
-//
-//                if (sodiumOptionsProfile.createNewFile())
-//                    System.out.println("Sodium Options Profile was created successfully.");
-//
-//                Scanner sodiumOptionsReader = new Scanner(sodiumOptions);
-//                FileWriter sodiumOptionsWriter = new FileWriter(sodiumOptionsProfile);
-//
-//                while (sodiumOptionsReader.hasNextLine()) {
-//                    String data = sodiumOptionsReader.nextLine();
-//                    sodiumOptionsWriter.write(data);
-//                    sodiumOptionsWriter.write("\n");
-//                }
-//
-//                sodiumOptionsWriter.close();
-//                sodiumOptionsReader.close();
-//            }
         } catch (IOException e) {
             System.out.println("An error occurred when writing a profile.");
             e.printStackTrace();
@@ -108,19 +84,6 @@ public class Profiles {
 
         if (!profile.renameTo(newProfile))
             System.out.println("Profile was not renamed successfully.");
-
-        // Sodium
-        // The code below doesn't work
-//        if (FabricLoader.getInstance().isModLoaded("sodium")) {
-//            File sodiumOptionsProfile = new File(path + profileName + "-sodium-options" + ".json");
-//            File newSodiumOptionsProfile = new File(path + newProfileName + "-sodium-options" + ".json");
-//
-//            if (newSodiumOptionsProfile.exists())
-//                System.out.println("New Sodium options profile already exists!");
-//
-//            if (!sodiumOptionsProfile.renameTo(newSodiumOptionsProfile))
-//                System.out.println("Sodium options profile was not renamed successfully.");
-//        }
     }
 
     public void deleteProfile(String profileName) {
@@ -153,27 +116,6 @@ public class Profiles {
 
             writer.close();
             reader.close();
-
-            // Sodium
-            // The code below doesn't work
-//            if (FabricLoader.getInstance().isModLoaded("sodium")) {
-//                System.out.println("Found Sodium in mods.");
-//
-//                File sodiumOptions = new File("config/sodium-options.json");
-//                File sodiumOptionsProfile = new File(path + profileName + "-sodium-options" + ".json");
-//
-//                Scanner sodiumOptionsReader = new Scanner(sodiumOptionsProfile);
-//                FileWriter sodiumOptionsWriter = new FileWriter(sodiumOptions);
-//
-//                while (sodiumOptionsReader.hasNextLine()) {
-//                    String data = sodiumOptionsReader.nextLine();
-//                    sodiumOptionsWriter.write(data);
-//                    sodiumOptionsWriter.write("\n");
-//                }
-//
-//                sodiumOptionsWriter.close();
-//                sodiumOptionsReader.close();
-//            }
         } catch (IOException e) {
             System.out.println("An error occurred when creating a profile.");
             e.printStackTrace();

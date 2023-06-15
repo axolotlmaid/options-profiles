@@ -2,13 +2,10 @@ package dev.axolotlmaid.optionsprofiles.gui;
 
 import dev.axolotlmaid.optionsprofiles.Profiles;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.GameModeSelectionScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 
 public class EditProfileScreen extends Screen {
@@ -24,6 +21,7 @@ public class EditProfileScreen extends Screen {
     @Override
     protected void init() {
         TextFieldWidget textfield = new TextFieldWidget(textRenderer, this.width / 2 - 102, this.height / 4 + 24, 204, 20, Text.translatable("profile-name-text-field"));
+        textfield.setText(profileName.getString());
         this.addDrawableChild(textfield);
 
         this.addDrawableChild(new ButtonWidget.Builder(Text.translatable("gui.options-profiles.update-profile-text"), (button) -> {

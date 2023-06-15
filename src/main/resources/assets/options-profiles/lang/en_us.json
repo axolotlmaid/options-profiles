@@ -4,7 +4,7 @@
   "gui.options-profiles.edit-profiles-screen-text": "Editing Profile: ",
   "gui.options-profiles.delete-profile-text": "Delete Profile",
   "gui.options-profiles.save-profile-text": "Save Profile",
-  "gui.options-profiles.update-profile-text": "Overwrite",
+  "gui.options-profiles.update-profile-text": "Overwrite Options",
   "gui.options-profiles.save-current-options": "Save Current Options",
   "gui.options-profiles.load-profile-text": "✔ (Load)",
   "gui.options-profiles.edit-profile-text": "✎ (Edit)",
