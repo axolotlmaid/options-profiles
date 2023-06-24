@@ -4,9 +4,9 @@
 
 # Options Profiles ![modrinth downloads](https://img.shields.io/modrinth/dt/DnyS3EEW?color=gree&label=modrinth%20downloads&logo=modrinth) ![curseforge downloads](https://cf.way2muchnoise.eu/full_853719_downloads.svg)
 
-[![Modrinth](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/modrinth_64h.png?raw=true)](modrinth)
-[![Curseforge](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/curseforge_64h.png?raw=true)](curseforge)
-[![GitHub](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/github_64h.png?raw=true)](github)
+[![Modrinth](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/modrinth_64h.png?raw=true)](https://modrinth.com/mod/options-profiles)
+[![Curseforge](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/curseforge_64h.png?raw=true)](https://curseforge.com/minecraft/mc-mods/options-profiles)
+[![GitHub](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/github_64h.png?raw=true)](https://github.com/AxolotlMaid/options-profiles)
 
 Options Profiles is a Minecraft mod that lets you load and save your options as profiles from in-game.
 > Using Options Profiles to change video settings with **Sodium** installed *will* not work!
