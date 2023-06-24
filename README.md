@@ -1,10 +1,15 @@
+[github]: https://github.com/AxolotlMaid/options-profiles
+[modrinth]: https://modrinth.com/mod/options-profiles
+[curseforge]: https://curseforge.com/minecraft/mc-mods/options-profiles
+
 # Options Profiles ![modrinth downloads](https://img.shields.io/modrinth/dt/DnyS3EEW?color=gree&label=modrinth%20downloads&logo=modrinth) ![curseforge downloads](https://cf.way2muchnoise.eu/full_853719_downloads.svg)
+
+[![Modrinth](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/modrinth_64h.png?raw=true)](modrinth)
+[![Curseforge](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/curseforge_64h.png?raw=true)](curseforge)
+[![GitHub](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/github_64h.png?raw=true)](github)
+
 Options Profiles is a Minecraft mod that lets you load and save your options as profiles from in-game.
 > Using Options Profiles to change video settings with **Sodium** installed *will* not work!
-
-### Links
-  - [Modrinth](https://modrinth.com/mod/options-profiles)
-  - [CurseForge](https://curseforge.com/minecraft/mc-mods/options-profiles)
 
 ## Features
 > Profiles are saved in a folder called "options-profiles" in the specified ".minecraft" directory.
