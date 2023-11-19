@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "optionsprofiles",
+  "version": "${version}",
+  "name": "Options Profiles",
+  "description": "Load and save your options from in-game.",
+  "authors": [
+    "AxolotlMaid"
+  ],
+  "contact": {
+    "homepage": "https://github.com/AxolotlMaid/options-profiles",
+    "sources": "https://github.com/AxolotlMaid/options-profiles",
+    "issues": "https://github.com/AxolotlMaid/options-profiles/issues"
+  },
+  "license": "GNU GPL 3.0",
+  "icon": "assets/optionsprofiles/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.axolotlmaid.optionsprofiles.fabric.OptionsProfilesModFabric"
+    ]
+  },
+  "mixins": [
+    "optionsprofiles.mixins.json",
+    "optionsprofiles-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.20.1",
+    "architectury": ">=9.1.12"
+  }
+}

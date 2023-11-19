@@ -1,0 +1,15 @@
+{
+  "gui.optionsprofiles.profiles-menu": "Профиль",
+  "gui.optionsprofiles.save-current-options": "Хәзерге көйләүләрне саклау",
+  "gui.optionsprofiles.load-profile": "✔ (Йөкләү)",
+  "gui.optionsprofiles.edit-profile": "✎ (Үзгәртү)",
+
+  "gui.optionsprofiles.editing-profile-title": "Профильне үзгәртү: ",
+  "gui.optionsprofiles.profile-name-text": "Профиль исеме",
+  "gui.optionsprofiles.overwrite-options": "перезапись",
+  "gui.optionsprofiles.rename-profile": "переименовывать",
+  "gui.optionsprofiles.delete-profile": "бетерү",
+
+  "modmenu.summaryTranslation.options-profiles": "Хәзерге көйләүләр профильләрен саклагыз һәм уеннан чыгусыз йөкләгез.",
+  "modmenu.descriptionTranslation.options-profiles": "Хәзерге көйләүләр профильләрен сакларга һәм уеннан чыгусыз йөкләргә рөхсәт итә торган мод."
+}

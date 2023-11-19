@@ -1,0 +1,12 @@
+{
+  "gui.optionsprofiles.profiles-menu": "Profiles",
+  "gui.optionsprofiles.save-current-options": "Save Current Options",
+  "gui.optionsprofiles.load-profile": "✔ (Load)",
+  "gui.optionsprofiles.edit-profile": "✎ (Edit)",
+
+  "gui.optionsprofiles.editing-profile-title": "Editing Profile: ",
+  "gui.optionsprofiles.profile-name-text": "Profile Name",
+  "gui.optionsprofiles.overwrite-options": "Overwrite",
+  "gui.optionsprofiles.rename-profile": "Rename",
+  "gui.optionsprofiles.delete-profile": "Delete"
+}
