@@ -2,14 +2,17 @@ package com.axolotlmaid.optionsprofiles.gui;
 
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -18,7 +21,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 
-public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entry> {
+public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.ProfileEntry> {
     final ProfilesScreen profilesScreen;
 
     public ProfilesList(ProfilesScreen profilesScreen, Minecraft minecraft) {
@@ -35,7 +38,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
 
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(profilesDirectory)) {
             for (Path profile : directoryStream) {
-                this.addEntry(new ProfilesList.ProfileEntry(Component.literal(profile.getFileName().toString())));
+                this.addEntry(new ProfilesList.ProfileEntry(profile.getFileName().toString()));
             }
         } catch (Exception e) {
             System.out.println("An error occurred when listing profiles.");
@@ -51,20 +54,20 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         return super.getRowWidth() + 32;
     }
 
-    public class ProfileEntry extends Entry {
-        private final Component profileName;
+    public class ProfileEntry extends ContainerObjectSelectionList.Entry<ProfilesList.ProfileEntry> {
+        private final String profileName;
         private final Button editButton;
         private final Button loadButton;
 
-        ProfileEntry(Component profileName) {
+        ProfileEntry(String profileName) {
             this.profileName = profileName;
 
-            this.editButton = Button.builder(Component.translatable("gui.optionsprofiles.edit-profile"), (button) -> {
+            this.editButton = new Button(0, 0, 75, 20, new TranslatableComponent("gui.optionsprofiles.edit-profile"), (button) -> {
                 minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName));
-            }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.edit-profile")).build();
+            });
 
-            this.loadButton = Button.builder(Component.translatable("gui.optionsprofiles.load-profile"), (button) -> {
-                new Profiles().loadProfile(profileName.getString());
+            this.loadButton = new Button(0, 0, 75, 20, new TranslatableComponent("gui.optionsprofiles.load-profile"), (button) -> {
+                Profiles.loadProfile(profileName);
 
                 minecraft.options.load();
                 minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
@@ -73,26 +76,27 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
                 minecraft.options.save();
 
                 button.active = false;
-            }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.load-profile")).build();
+            });
 
-            this.loadButton.active = !new Profiles().isProfileLoaded(profileName.getString());
+            this.loadButton.active = !Profiles.isProfileLoaded(profileName);
         }
 
-        public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        @Override
+        public void render(PoseStack poseStack, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             Font fontRenderer = ProfilesList.this.minecraft.font;
 
             int textY = y + entryHeight / 2;
 
             Objects.requireNonNull(ProfilesList.this.minecraft.font);
-            guiGraphics.drawString(fontRenderer, this.profileName, x - 50, textY - 9 / 2, 16777215, false);
+            GuiComponent.drawString(poseStack, fontRenderer, this.profileName, x - 50, textY - 9 / 2, 16777215);
 
-            this.editButton.setX(x + 115);
-            this.editButton.setY(y);
-            this.editButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+            this.editButton.x = x + 115;
+            this.editButton.y = y;
+            this.editButton.render(poseStack, mouseX, mouseY, tickDelta);
 
-            this.loadButton.setX(x + 190);
-            this.loadButton.setY(y);
-            this.loadButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+            this.loadButton.x = x + 190;
+            this.loadButton.y = y;
+            this.loadButton.render(poseStack, mouseX, mouseY, tickDelta);
         }
 
         public List<? extends GuiEventListener> children() {
@@ -104,8 +108,4 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         }
     }
 
-    public abstract static class Entry extends ContainerObjectSelectionList.Entry<ProfilesList.Entry> {
-        public Entry() {
-        }
-    }
 }
