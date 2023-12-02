@@ -26,14 +26,17 @@ public class SodiumConfigLoader {
         SodiumClientMod.options().quality.leavesQuality = SodiumGameOptions.GraphicsQuality.valueOf(configData.quality.leaves_quality);
         SodiumClientMod.options().quality.enableVignette = configData.quality.enable_vignette;
 
+        SodiumClientMod.options().advanced.arenaMemoryAllocator = SodiumGameOptions.ArenaMemoryAllocator.valueOf(configData.advanced.arena_memory_allocator);
+        SodiumClientMod.options().advanced.allowDirectMemoryAccess = configData.advanced.allow_direct_memory_access;
         SodiumClientMod.options().advanced.enableMemoryTracing = configData.advanced.enable_memory_tracing;
         SodiumClientMod.options().advanced.useAdvancedStagingBuffers = configData.advanced.use_advanced_staging_buffers;
         SodiumClientMod.options().advanced.cpuRenderAheadLimit = configData.advanced.cpu_render_ahead_limit;
 
         SodiumClientMod.options().performance.chunkBuilderThreads = configData.performance.chunk_builder_threads;
-        SodiumClientMod.options().performance.alwaysDeferChunkUpdates = configData.performance.always_defer_chunk_updates_v2;
+        SodiumClientMod.options().performance.alwaysDeferChunkUpdates = configData.performance.always_defer_chunk_updates;
         SodiumClientMod.options().performance.animateOnlyVisibleTextures = configData.performance.animate_only_visible_textures;
         SodiumClientMod.options().performance.useEntityCulling = configData.performance.use_entity_culling;
+        SodiumClientMod.options().performance.useParticleCulling = configData.performance.use_particle_culling;
         SodiumClientMod.options().performance.useFogOcclusion = configData.performance.use_fog_occlusion;
         SodiumClientMod.options().performance.useBlockFaceCulling = configData.performance.use_block_face_culling;
 
@@ -59,6 +62,8 @@ public class SodiumConfigLoader {
         }
 
         public static class Advanced {
+            public String arena_memory_allocator;
+            public boolean allow_direct_memory_access;
             public boolean enable_memory_tracing;
             public boolean use_advanced_staging_buffers;
             public int cpu_render_ahead_limit;
@@ -66,12 +71,12 @@ public class SodiumConfigLoader {
 
         public static class Performance {
             public int chunk_builder_threads;
-            public boolean always_defer_chunk_updates_v2;
+            public boolean always_defer_chunk_updates;
             public boolean animate_only_visible_textures;
             public boolean use_entity_culling;
+            public boolean use_particle_culling;
             public boolean use_fog_occlusion;
             public boolean use_block_face_culling;
-            public boolean use_no_error_g_l_context;
         }
 
         public static class Notifications {
