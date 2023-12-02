@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Profiles {
-    public void createProfile() {
+    public static void createProfile() {
         String profileName = "Profile 1";
         Path profile = Paths.get("options-profiles/" + profileName);
 
@@ -38,7 +38,7 @@ public class Profiles {
         }
     }
 
-    public void writeOptionsFilesIntoProfile(String profileName) {
+    public static void writeOptionsFilesIntoProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         // options.txt
@@ -90,7 +90,7 @@ public class Profiles {
         }
     }
 
-    public boolean isProfileLoaded(String profileName) {
+    public static boolean isProfileLoaded(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         Path options = Paths.get("options.txt");
@@ -122,7 +122,7 @@ public class Profiles {
         return false;
     }
 
-    public void loadProfile(String profileName) {
+    public static void loadProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         // options.txt
@@ -158,7 +158,7 @@ public class Profiles {
         }
     }
 
-    public void renameProfile(String profileName, String newProfileName) {
+    public static void renameProfile(String profileName, String newProfileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
         Path newProfile = Paths.get("options-profiles/" + newProfileName);
 
@@ -179,7 +179,7 @@ public class Profiles {
         }
     }
 
-    public void deleteProfile(String profileName) {
+    public static void deleteProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         try (Stream<Path> files = Files.walk(profile)) {

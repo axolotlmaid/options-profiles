@@ -36,7 +36,6 @@ public class SodiumConfigLoader {
         SodiumClientMod.options().performance.useEntityCulling = configData.performance.use_entity_culling;
         SodiumClientMod.options().performance.useFogOcclusion = configData.performance.use_fog_occlusion;
         SodiumClientMod.options().performance.useBlockFaceCulling = configData.performance.use_block_face_culling;
-        SodiumClientMod.options().performance.useNoErrorGLContext = configData.performance.use_no_error_g_l_context;
 
         SodiumClientMod.options().notifications.hideDonationButton = configData.notifications.hide_donation_button;
 
