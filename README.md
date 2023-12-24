@@ -10,7 +10,7 @@
 
 Options Profiles lets you load and save your options as profiles from in-game.
 
-You may use this mod in modpacks.
+You may use this mod in modpacks / clients.
 
 ## Features
 - Profiles are saved in a folder called "options-profiles" in the specified ".minecraft" directory.
@@ -19,6 +19,12 @@ You may use this mod in modpacks.
 - Resource packs support
 - Save current options
 - Edit profiles in-game (deleting, renaming, overwriting)
+
+## Possible Features?
+- Save profiles globally (Use profiles across minecraft instances that are in different folders)
+- Profiles that only change certain options (Changing only keybinds)
+- Profile descriptions
+- Sharing platform? (Export and import options from a website where people can share their options)
 
 ## Gallery
 
