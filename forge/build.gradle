@@ -17,6 +17,12 @@ loom {
         mixinConfig "optionsprofiles-common.mixins.json"
         mixinConfig "optionsprofiles.mixins.json"
     }
+
+    mods {
+        register("forge") {
+            sourceSet("main", project(":forge"))
+        }
+    }
 }
 
 configurations {
