@@ -2,9 +2,9 @@ package com.axolotlmaid.optionsprofiles.gui;
 
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -22,7 +22,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
     final ProfilesScreen profilesScreen;
 
     public ProfilesList(ProfilesScreen profilesScreen, Minecraft minecraft) {
-        super(minecraft, profilesScreen.width + 45, profilesScreen.height - 52, 20, 20);
+        super(minecraft, profilesScreen.width + 45, profilesScreen.height, 20, profilesScreen.height - 32, 20);
         this.profilesScreen = profilesScreen;
 
         refreshEntries();
@@ -56,15 +56,15 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         private final Button editButton;
         private final Button loadButton;
 
-        ProfileEntry(Component profileName) {
+        ProfileEntry(final Component profileName) {
             this.profileName = profileName;
 
-            this.editButton = Button.builder(Component.translatable("gui.optionsprofiles.edit-profile"), (button) -> {
-                minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName));
-            }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.edit-profile")).build();
+            this.editButton = new Button(0, 0, 75, 20, Component.translatable("gui.optionsprofiles.edit-profile"), (button) -> {
+                ProfilesList.this.minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName));
+            });
 
-            this.loadButton = Button.builder(Component.translatable("gui.optionsprofiles.load-profile"), (button) -> {
-                new Profiles().loadProfile(profileName.getString());
+            this.loadButton = new Button(0, 0, 75, 20, Component.translatable("gui.optionsprofiles.load-profile"), (button) -> {
+                Profiles.loadProfile(profileName.getString());
 
                 minecraft.options.load();
                 minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
@@ -73,26 +73,21 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
                 minecraft.options.save();
 
                 button.active = false;
-            }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.load-profile")).build();
+            });
 
-            this.loadButton.active = !new Profiles().isProfileLoaded(profileName.getString());
+            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
         }
 
-        public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            Font fontRenderer = ProfilesList.this.minecraft.font;
+        public void render(PoseStack p_193923_, int p_193924_, int p_193925_, int p_193926_, int p_193927_, int p_193928_, int p_193929_, int p_193930_, boolean p_193931_, float p_193932_) {
+            ProfilesList.this.minecraft.font.draw(p_193923_, this.profileName, p_193926_, (float)(p_193925_ + p_193928_ / 2 - 9 / 2), 16777215);
 
-            int textY = y + entryHeight / 2;
+            this.loadButton.x = p_193926_ + 190;
+            this.loadButton.y = p_193925_;
+            this.loadButton.render(p_193923_, p_193929_, p_193930_, p_193932_);
 
-            Objects.requireNonNull(ProfilesList.this.minecraft.font);
-            guiGraphics.drawString(fontRenderer, this.profileName, x - 50, textY - 9 / 2, 16777215, false);
-
-            this.editButton.setX(x + 115);
-            this.editButton.setY(y);
-            this.editButton.render(guiGraphics, mouseX, mouseY, tickDelta);
-
-            this.loadButton.setX(x + 190);
-            this.loadButton.setY(y);
-            this.loadButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+            this.editButton.x = p_193926_ + 115;
+            this.editButton.y = p_193925_;
+            this.editButton.render(p_193923_, p_193929_, p_193930_, p_193932_);
         }
 
         public List<? extends GuiEventListener> children() {
@@ -101,6 +96,18 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
 
         public List<? extends NarratableEntry> narratables() {
             return ImmutableList.of(this.editButton, this.loadButton);
+        }
+
+        public boolean mouseClicked(double p_193919_, double p_193920_, int p_193921_) {
+            if (this.editButton.mouseClicked(p_193919_, p_193920_, p_193921_)) {
+                return true;
+            } else {
+                return this.loadButton.mouseClicked(p_193919_, p_193920_, p_193921_);
+            }
+        }
+
+        public boolean mouseReleased(double p_193941_, double p_193942_, int p_193943_) {
+            return this.editButton.mouseReleased(p_193941_, p_193942_, p_193943_) || this.loadButton.mouseReleased(p_193941_, p_193942_, p_193943_);
         }
     }
 

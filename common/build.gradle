@@ -28,7 +28,7 @@ dependencies {
     modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
     // sodium
-    modImplementation "maven.modrinth:sodium:mc1.20.1-0.5.3"
+    modImplementation "maven.modrinth:sodium:mc1.19.2-0.4.4"
 }
 
 publishing {

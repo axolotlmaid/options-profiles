@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
+
 @Mixin(OptionsScreen.class)
 public class MixinOptionsScreen extends Screen {
     protected MixinOptionsScreen(Component component) {
@@ -18,8 +20,8 @@ public class MixinOptionsScreen extends Screen {
 
     @Inject(at = @At("HEAD"), method = "init")
     private void init(CallbackInfo info) {
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.profiles-menu"), (button) -> {
+        this.addRenderableWidget(new Button(5, 5, 100, 20, Component.translatable("gui.optionsprofiles.profiles-menu"), (button) -> {
             this.minecraft.setScreen(new ProfilesScreen(this));
-        }).width(100).pos(5, 5).build());
+        }));
     }
 }
