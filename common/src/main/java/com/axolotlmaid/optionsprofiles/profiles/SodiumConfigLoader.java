@@ -38,10 +38,11 @@ public class SodiumConfigLoader {
         SodiumClientMod.options().performance.useBlockFaceCulling = configData.performance.use_block_face_culling;
         SodiumClientMod.options().performance.useNoErrorGLContext = configData.performance.use_no_error_g_l_context;
 
-        SodiumClientMod.options().notifications.hideDonationButton = configData.notifications.hide_donation_button;
+        SodiumClientMod.options().notifications.hasClearedDonationButton = configData.notifications.has_cleared_donation_button;
+        SodiumClientMod.options().notifications.hasSeenDonationPrompt = configData.notifications.has_seen_donation_prompt;
 
         try {
-            SodiumClientMod.options().writeChanges();
+            SodiumGameOptions.writeToDisk(SodiumClientMod.options());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +77,8 @@ public class SodiumConfigLoader {
         }
 
         public static class Notifications {
-            public boolean hide_donation_button;
+            public boolean has_cleared_donation_button;
+            public boolean has_seen_donation_prompt;
         }
     }
 }
