@@ -11,4 +11,4 @@ include("common")
 include("fabric")
 include("forge")
 
-rootProject.name = "optionsprofiles-v1.1-1.16.5"
+rootProject.name = "optionsprofiles-v1.2-1.16.5"
