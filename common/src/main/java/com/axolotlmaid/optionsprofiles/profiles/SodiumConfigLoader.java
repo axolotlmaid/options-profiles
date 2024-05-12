@@ -22,27 +22,27 @@ public class SodiumConfigLoader {
     }
 
     private static void apply(ConfigData configData) {
+        SodiumClientMod.options().notifications.hideDonationButton = configData.notifications.hide_donation_button;
+
+        SodiumClientMod.options().quality.cloudQuality = SodiumGameOptions.GraphicsQuality.valueOf(configData.quality.cloud_quality);
         SodiumClientMod.options().quality.weatherQuality = SodiumGameOptions.GraphicsQuality.valueOf(configData.quality.weather_quality);
-        SodiumClientMod.options().quality.leavesQuality = SodiumGameOptions.GraphicsQuality.valueOf(configData.quality.leaves_quality);
         SodiumClientMod.options().quality.enableVignette = configData.quality.enable_vignette;
+        SodiumClientMod.options().quality.enableClouds = configData.quality.enable_clouds;
+        SodiumClientMod.options().quality.smoothLighting = SodiumGameOptions.LightingQuality.valueOf(configData.quality.smooth_lighting);
 
-        SodiumClientMod.options().advanced.enableMemoryTracing = configData.advanced.enable_memory_tracing;
-        SodiumClientMod.options().advanced.useAdvancedStagingBuffers = configData.advanced.use_advanced_staging_buffers;
-        SodiumClientMod.options().advanced.cpuRenderAheadLimit = configData.advanced.cpu_render_ahead_limit;
-
-        SodiumClientMod.options().performance.chunkBuilderThreads = configData.performance.chunk_builder_threads;
-        SodiumClientMod.options().performance.alwaysDeferChunkUpdates = configData.performance.always_defer_chunk_updates_v2;
-        SodiumClientMod.options().performance.animateOnlyVisibleTextures = configData.performance.animate_only_visible_textures;
-        SodiumClientMod.options().performance.useEntityCulling = configData.performance.use_entity_culling;
-        SodiumClientMod.options().performance.useFogOcclusion = configData.performance.use_fog_occlusion;
-        SodiumClientMod.options().performance.useBlockFaceCulling = configData.performance.use_block_face_culling;
-        SodiumClientMod.options().performance.useNoErrorGLContext = configData.performance.use_no_error_g_l_context;
-
-        SodiumClientMod.options().notifications.hasClearedDonationButton = configData.notifications.has_cleared_donation_button;
-        SodiumClientMod.options().notifications.hasSeenDonationPrompt = configData.notifications.has_seen_donation_prompt;
+        SodiumClientMod.options().advanced.useVertexArrayObjects = configData.advanced.use_vertex_array_objects;
+        SodiumClientMod.options().advanced.useChunkMultidraw = configData.advanced.use_advanced_staging_buffers;
+        SodiumClientMod.options().advanced.animateOnlyVisibleTextures = configData.advanced.animate_only_visible_textures;
+        SodiumClientMod.options().advanced.useEntityCulling = configData.advanced.use_entity_culling;
+        SodiumClientMod.options().advanced.useParticleCulling = configData.advanced.use_particle_culling;
+        SodiumClientMod.options().advanced.useFogOcclusion = configData.advanced.use_fog_occlusion;
+        SodiumClientMod.options().advanced.useCompactVertexFormat = configData.advanced.use_compact_vertex_format;
+        SodiumClientMod.options().advanced.useBlockFaceCulling = configData.advanced.use_block_face_culling;
+        SodiumClientMod.options().advanced.allowDirectMemoryAccess = configData.advanced.allow_direct_memory_access;
+        SodiumClientMod.options().advanced.ignoreDriverBlacklist = configData.advanced.ignore_driver_blacklist;
 
         try {
-            SodiumGameOptions.writeToDisk(SodiumClientMod.options());
+            SodiumClientMod.options().writeChanges();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,34 +51,31 @@ public class SodiumConfigLoader {
     public static class ConfigData {
         public Quality quality;
         public Advanced advanced;
-        public Performance performance;
         public Notifications notifications;
 
         public static class Quality {
+            public String cloud_quality;
             public String weather_quality;
-            public String leaves_quality;
             public boolean enable_vignette;
+            public boolean enable_clouds;
+            public String smooth_lighting;
         }
 
         public static class Advanced {
-            public boolean enable_memory_tracing;
+            public boolean use_vertex_array_objects;
             public boolean use_advanced_staging_buffers;
-            public int cpu_render_ahead_limit;
-        }
-
-        public static class Performance {
-            public int chunk_builder_threads;
-            public boolean always_defer_chunk_updates_v2;
             public boolean animate_only_visible_textures;
             public boolean use_entity_culling;
+            public boolean use_particle_culling;
             public boolean use_fog_occlusion;
+            public boolean use_compact_vertex_format;
             public boolean use_block_face_culling;
-            public boolean use_no_error_g_l_context;
+            public boolean allow_direct_memory_access;
+            public boolean ignore_driver_blacklist;
         }
 
         public static class Notifications {
-            public boolean has_cleared_donation_button;
-            public boolean has_seen_donation_prompt;
+            public boolean hide_donation_button;
         }
     }
 }
