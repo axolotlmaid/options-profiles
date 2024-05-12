@@ -31,7 +31,7 @@ public class SodiumConfigLoader {
         SodiumClientMod.options().quality.smoothLighting = SodiumGameOptions.LightingQuality.valueOf(configData.quality.smooth_lighting);
 
         SodiumClientMod.options().advanced.useVertexArrayObjects = configData.advanced.use_vertex_array_objects;
-        SodiumClientMod.options().advanced.useChunkMultidraw = configData.advanced.use_advanced_staging_buffers;
+        SodiumClientMod.options().advanced.useChunkMultidraw = configData.advanced.use_chunk_multidraw;
         SodiumClientMod.options().advanced.animateOnlyVisibleTextures = configData.advanced.animate_only_visible_textures;
         SodiumClientMod.options().advanced.useEntityCulling = configData.advanced.use_entity_culling;
         SodiumClientMod.options().advanced.useParticleCulling = configData.advanced.use_particle_culling;
@@ -63,7 +63,7 @@ public class SodiumConfigLoader {
 
         public static class Advanced {
             public boolean use_vertex_array_objects;
-            public boolean use_advanced_staging_buffers;
+            public boolean use_chunk_multidraw;
             public boolean animate_only_visible_textures;
             public boolean use_entity_culling;
             public boolean use_particle_culling;
