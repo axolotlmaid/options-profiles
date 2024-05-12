@@ -1,7 +1,5 @@
 package com.axolotlmaid.optionsprofiles.profiles;
 
-import dev.architectury.platform.Platform;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Profiles {
-    public void createProfile() {
+    public static void createProfile() {
         String profileName = "Profile 1";
         Path profile = Paths.get("options-profiles/" + profileName);
 
@@ -38,7 +36,7 @@ public class Profiles {
         }
     }
 
-    public void writeOptionsFilesIntoProfile(String profileName) {
+    public static void writeOptionsFilesIntoProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         // options.txt
@@ -64,33 +62,33 @@ public class Profiles {
         }
 
         // sodium-options.json
-        if (Platform.isFabric()) {
-            if (Platform.isModLoaded("sodium")) {
-                Path sodiumConfiguration = Paths.get("config/sodium-options.json");
-                Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
-
-                try (Stream<String> paths = Files.lines(sodiumConfiguration)) {
-                    if (Files.exists(sodiumConfigurationProfile))
-                        Files.newBufferedWriter(sodiumConfigurationProfile, StandardOpenOption.TRUNCATE_EXISTING);
-
-                    paths.forEach(line -> {
-                        try {
-                            Files.write(sodiumConfigurationProfile, line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-                            Files.write(sodiumConfigurationProfile, "\n".getBytes(), StandardOpenOption.APPEND);
-                        } catch (IOException e) {
-                            System.out.println("An error occurred when writing a profile.");
-                            e.printStackTrace();
-                        }
-                    });
-                } catch (IOException e) {
-                    System.out.println("An error occurred when reading options.txt.");
-                    e.printStackTrace();
-                }
-            }
-        }
+//        if (Platform.isFabric()) {
+//            if (Platform.isModLoaded("sodium")) {
+//                Path sodiumConfiguration = Paths.get("config/sodium-options.json");
+//                Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
+//
+//                try (Stream<String> paths = Files.lines(sodiumConfiguration)) {
+//                    if (Files.exists(sodiumConfigurationProfile))
+//                        Files.newBufferedWriter(sodiumConfigurationProfile, StandardOpenOption.TRUNCATE_EXISTING);
+//
+//                    paths.forEach(line -> {
+//                        try {
+//                            Files.write(sodiumConfigurationProfile, line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+//                            Files.write(sodiumConfigurationProfile, "\n".getBytes(), StandardOpenOption.APPEND);
+//                        } catch (IOException e) {
+//                            System.out.println("An error occurred when writing a profile.");
+//                            e.printStackTrace();
+//                        }
+//                    });
+//                } catch (IOException e) {
+//                    System.out.println("An error occurred when reading options.txt.");
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
     }
 
-    public boolean isProfileLoaded(String profileName) {
+    public static boolean isProfileLoaded(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         Path options = Paths.get("options.txt");
@@ -100,19 +98,19 @@ public class Profiles {
             List<String> linesOptions = Files.readAllLines(options);
             List<String> linesProfileOptions = Files.readAllLines(profileOptions);
 
-            if (Platform.isFabric()) {
-                if (Platform.isModLoaded("sodium")) {
-                    Path sodiumConfiguration = Paths.get("config/sodium-options.json");
-                    Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
-
-                    if (Files.exists(sodiumConfigurationProfile)) {
-                        List<String> linesSodiumConfig = Files.readAllLines(sodiumConfiguration);
-                        List<String> linesSodiumConfigProfile = Files.readAllLines(sodiumConfigurationProfile);
-
-                        return linesOptions.equals(linesProfileOptions) && linesSodiumConfig.equals(linesSodiumConfigProfile);
-                    }
-                }
-            }
+//            if (Platform.isFabric()) {
+//                if (Platform.isModLoaded("sodium")) {
+//                    Path sodiumConfiguration = Paths.get("config/sodium-options.json");
+//                    Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
+//
+//                    if (Files.exists(sodiumConfigurationProfile)) {
+//                        List<String> linesSodiumConfig = Files.readAllLines(sodiumConfiguration);
+//                        List<String> linesSodiumConfigProfile = Files.readAllLines(sodiumConfigurationProfile);
+//
+//                        return linesOptions.equals(linesProfileOptions) && linesSodiumConfig.equals(linesSodiumConfigProfile);
+//                    }
+//                }
+//            }
 
             return linesOptions.equals(linesProfileOptions);
         } catch (IOException e) {
@@ -122,7 +120,7 @@ public class Profiles {
         return false;
     }
 
-    public void loadProfile(String profileName) {
+    public static void loadProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         // options.txt
@@ -147,18 +145,18 @@ public class Profiles {
         }
 
         // sodium-options.json
-        if (Platform.isFabric()) {
-            if (Platform.isModLoaded("sodium")) {
-                Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
-
-                if (Files.exists(sodiumConfigurationProfile)) {
-                    SodiumConfigLoader.load(sodiumConfigurationProfile);
-                }
-            }
-        }
+//        if (Platform.isFabric()) {
+//            if (Platform.isModLoaded("sodium")) {
+//                Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
+//
+//                if (Files.exists(sodiumConfigurationProfile)) {
+//                    SodiumConfigLoader.load(sodiumConfigurationProfile);
+//                }
+//            }
+//        }
     }
 
-    public void renameProfile(String profileName, String newProfileName) {
+    public static void renameProfile(String profileName, String newProfileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
         Path newProfile = Paths.get("options-profiles/" + newProfileName);
 
@@ -179,7 +177,7 @@ public class Profiles {
         }
     }
 
-    public void deleteProfile(String profileName) {
+    public static void deleteProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         try (Stream<Path> files = Files.walk(profile)) {
