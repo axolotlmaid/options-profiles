@@ -158,9 +158,9 @@ public class Profiles {
         if (Files.exists(Paths.get(profile.toAbsolutePath() + "/sodium-options.json")))
             SodiumConfigLoader.load(sodiumConfigurationProfile);
 
-        // optifineof.txt
+        // optionsof.txt
         if (Files.exists(Paths.get(profile.toAbsolutePath() + "/optionsof.txt")))
-            loadOptionFile(profileName, "optifineof.txt");
+            loadOptionFile(profileName, "optionsof.txt");
     }
 
     public static void renameProfile(String profileName, String newProfileName) {
