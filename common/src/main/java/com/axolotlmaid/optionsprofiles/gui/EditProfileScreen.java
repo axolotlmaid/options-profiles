@@ -22,19 +22,19 @@ public class EditProfileScreen extends Screen {
     }
 
     protected void init() {
-        this.profileNameEdit = new EditBox(this.font, this.width / 2 - 102, this.height - 130, 204, 20, Component.empty());
+        this.profileNameEdit = new EditBox(this.font, this.width / 2 - 102, 116, 204, 20, Component.empty());
         this.profileNameEdit.setValue(profileName.getString());
         this.addWidget(this.profileNameEdit);
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.overwrite-options"), (button) -> {
             new Profiles().writeOptionsFilesIntoProfile(profileName.getString());
             this.minecraft.setScreen(this.lastScreen);
-        }).size(100, 20).pos(this.width / 2 - 50, this.height - 85).build());
+        }).size(100, 20).pos(this.width / 2 - 50, 145).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.rename-profile"), (button) -> {
             new Profiles().renameProfile(profileName.getString(), this.profileNameEdit.getValue());
             this.minecraft.setScreen(new EditProfileScreen(lastScreen, Component.literal(this.profileNameEdit.getValue())));
-        }).size(100, 20).pos(this.width / 2 - 50, this.height - 65).build());
+        }).size(100, 20).pos(this.width / 2 - 50, 166).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.delete-profile").withStyle(ChatFormatting.RED), (button) -> {
             new Profiles().deleteProfile(profileName.getString());
@@ -50,6 +50,6 @@ public class EditProfileScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, delta);
         this.profileNameEdit.render(guiGraphics, mouseX, mouseY, delta);
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 8, 16777215);
-        guiGraphics.drawCenteredString(this.font, Component.translatable("gui.optionsprofiles.profile-name-text"), this.width / 2, this.height - 145, 16777215);
+        guiGraphics.drawCenteredString(this.font, Component.translatable("gui.optionsprofiles.profile-name-text"), this.width / 2, 100, 16777215);
     }
 }

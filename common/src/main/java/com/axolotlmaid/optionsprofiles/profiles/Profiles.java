@@ -1,7 +1,5 @@
 package com.axolotlmaid.optionsprofiles.profiles;
 
-import dev.architectury.platform.Platform;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Profiles {
-    public void createProfile() {
+    public static void createProfile() {
         String profileName = "Profile 1";
         Path profile = Paths.get("options-profiles/" + profileName);
 
@@ -26,24 +24,29 @@ public class Profiles {
             Files.createDirectory(profile);
 
             if (Files.exists(profile)) {
-                System.out.println("Profile created.");
+                System.out.println("[Options Profiles] Profile created.");
 
                 writeOptionsFilesIntoProfile(profileName);
             } else {
-                System.out.println("Profile was not created successfully.");
+                System.out.println("[Options Profiles] Profile was not created successfully.");
             }
         } catch (IOException e) {
-            System.out.println("An error occurred when creating a profile.");
+            System.out.println("[Options Profiles] An error occurred when creating a profile.");
             e.printStackTrace();
         }
     }
 
-    public void writeOptionsFilesIntoProfile(String profileName) {
+    private static void writeOptionFile(String profileName, String optionsFile, boolean isSodium) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
-        // options.txt
-        Path options = Paths.get("options.txt");
-        Path profileOptions = Paths.get(profile.toAbsolutePath() + "/options.txt");
+        Path options;
+        Path profileOptions = Paths.get(profile.toAbsolutePath() + "/" + optionsFile);
+
+        if (isSodium) {
+            options = Paths.get("config/" + optionsFile);
+        } else {
+            options = Paths.get(optionsFile);
+        }
 
         try (Stream<String> paths = Files.lines(options)) {
             if (Files.exists(profileOptions))
@@ -54,43 +57,32 @@ public class Profiles {
                     Files.write(profileOptions, line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
                     Files.write(profileOptions, "\n".getBytes(), StandardOpenOption.APPEND);
                 } catch (IOException e) {
-                    System.out.println("An error occurred when writing a profile.");
+                    System.out.println("[Options Profiles] An error occurred when writing a profile.");
                     e.printStackTrace();
                 }
             });
         } catch (IOException e) {
-            System.out.println("An error occurred when reading options.txt.");
+            System.out.println("[Options Profiles] An error occurred when reading an options file.");
             e.printStackTrace();
-        }
-
-        // sodium-options.json
-        if (Platform.isFabric()) {
-            if (Platform.isModLoaded("sodium")) {
-                Path sodiumConfiguration = Paths.get("config/sodium-options.json");
-                Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
-
-                try (Stream<String> paths = Files.lines(sodiumConfiguration)) {
-                    if (Files.exists(sodiumConfigurationProfile))
-                        Files.newBufferedWriter(sodiumConfigurationProfile, StandardOpenOption.TRUNCATE_EXISTING);
-
-                    paths.forEach(line -> {
-                        try {
-                            Files.write(sodiumConfigurationProfile, line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-                            Files.write(sodiumConfigurationProfile, "\n".getBytes(), StandardOpenOption.APPEND);
-                        } catch (IOException e) {
-                            System.out.println("An error occurred when writing a profile.");
-                            e.printStackTrace();
-                        }
-                    });
-                } catch (IOException e) {
-                    System.out.println("An error occurred when reading options.txt.");
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
-    public boolean isProfileLoaded(String profileName) {
+    public static void writeOptionsFilesIntoProfile(String profileName) {
+        // options.txt
+        writeOptionFile(profileName, "options.txt", false);
+
+        // sodium-options.json
+        if (Files.exists(Paths.get("config/sodium-options.json"))) {
+            writeOptionFile(profileName, "sodium-options.json", true);
+        }
+
+        // optionsof.txt
+        if (Files.exists(Paths.get("optionsof.txt"))) {
+            writeOptionFile(profileName, "optionsof.txt", false);
+        }
+    }
+
+    public static boolean isProfileLoaded(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         Path options = Paths.get("options.txt");
@@ -100,18 +92,26 @@ public class Profiles {
             List<String> linesOptions = Files.readAllLines(options);
             List<String> linesProfileOptions = Files.readAllLines(profileOptions);
 
-            if (Platform.isFabric()) {
-                if (Platform.isModLoaded("sodium")) {
-                    Path sodiumConfiguration = Paths.get("config/sodium-options.json");
-                    Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
+            // sodium-options.json
+            Path sodiumConfiguration = Paths.get("config/sodium-options.json");
+            Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
 
-                    if (Files.exists(sodiumConfigurationProfile)) {
-                        List<String> linesSodiumConfig = Files.readAllLines(sodiumConfiguration);
-                        List<String> linesSodiumConfigProfile = Files.readAllLines(sodiumConfigurationProfile);
+            if (Files.exists(sodiumConfigurationProfile)) {
+                List<String> linesSodiumConfig = Files.readAllLines(sodiumConfiguration);
+                List<String> linesSodiumConfigProfile = Files.readAllLines(sodiumConfigurationProfile);
 
-                        return linesOptions.equals(linesProfileOptions) && linesSodiumConfig.equals(linesSodiumConfigProfile);
-                    }
-                }
+                return linesOptions.equals(linesProfileOptions) && linesSodiumConfig.equals(linesSodiumConfigProfile);
+            }
+
+            // optionsof.txt
+            Path optifineConfiguration = Paths.get("optionsof.txt");
+            Path optifineConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/optionsof.txt");
+
+            if (Files.exists(optifineConfigurationProfile)) {
+                List<String> linesOptifineConfig = Files.readAllLines(optifineConfiguration);
+                List<String> linesOptifineConfigProfile = Files.readAllLines(optifineConfigurationProfile);
+
+                return linesOptions.equals(linesProfileOptions) && linesOptifineConfig.equals(linesOptifineConfigProfile);
             }
 
             return linesOptions.equals(linesProfileOptions);
@@ -122,12 +122,11 @@ public class Profiles {
         return false;
     }
 
-    public void loadProfile(String profileName) {
+    private static void loadOptionFile(String profileName, String optionsFile) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
-        // options.txt
-        Path options = Paths.get("options.txt");
-        Path profileOptions = Paths.get(profile.toAbsolutePath() + "/options.txt");
+        Path options = Paths.get(optionsFile);
+        Path profileOptions = Paths.get(profile.toAbsolutePath() + "/" + optionsFile);
 
         try (Stream<String> paths = Files.lines(profileOptions)) {
             Files.newBufferedWriter(options, StandardOpenOption.TRUNCATE_EXISTING);
@@ -137,49 +136,55 @@ public class Profiles {
                     Files.write(options, line.getBytes(), StandardOpenOption.APPEND);
                     Files.write(options, "\n".getBytes(), StandardOpenOption.APPEND);
                 } catch (IOException e) {
-                    System.out.println("An error occurred when loading a profile.");
+                    System.out.println("[Options Profiles] An error occurred when loading a profile.");
                     e.printStackTrace();
                 }
             });
         } catch (IOException e) {
-            System.out.println("An error occurred when loading a profile.");
+            System.out.println("[Options Profiles] An error occurred when loading a profile.");
             e.printStackTrace();
-        }
-
-        // sodium-options.json
-        if (Platform.isFabric()) {
-            if (Platform.isModLoaded("sodium")) {
-                Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
-
-                if (Files.exists(sodiumConfigurationProfile)) {
-                    SodiumConfigLoader.load(sodiumConfigurationProfile);
-                }
-            }
         }
     }
 
-    public void renameProfile(String profileName, String newProfileName) {
+    public static void loadProfile(String profileName) {
+        Path profile = Paths.get("options-profiles/" + profileName);
+
+        // options.txt
+        loadOptionFile(profileName, "options.txt");
+
+        // sodium-options.json
+        Path sodiumConfigurationProfile = Paths.get(profile.toAbsolutePath() + "/sodium-options.json");
+
+        if (Files.exists(Paths.get(profile.toAbsolutePath() + "/sodium-options.json")))
+            SodiumConfigLoader.load(sodiumConfigurationProfile);
+
+        // optionsof.txt
+        if (Files.exists(Paths.get(profile.toAbsolutePath() + "/optionsof.txt")))
+            loadOptionFile(profileName, "optionsof.txt");
+    }
+
+    public static void renameProfile(String profileName, String newProfileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
         Path newProfile = Paths.get("options-profiles/" + newProfileName);
 
         if (Files.exists(newProfile))
-            System.out.println("New profile already exists!");
+            System.out.println("[Options Profiles] New profile already exists!");
 
         try {
             Files.move(profile, newProfile);
 
             if (Files.exists(newProfile)) {
-                System.out.println("Profile renamed.");
+                System.out.println("[Options Profiles] Profile renamed.");
             } else {
-                System.out.println("Profile was not renamed successfully.");
+                System.out.println("[Options Profiles] Profile was not renamed successfully.");
             }
         } catch (IOException e) {
-            System.out.println("Profile was not renamed successfully.");
+            System.out.println("[Options Profiles] Profile was not renamed successfully.");
             e.printStackTrace();
         }
     }
 
-    public void deleteProfile(String profileName) {
+    public static void deleteProfile(String profileName) {
         Path profile = Paths.get("options-profiles/" + profileName);
 
         try (Stream<Path> files = Files.walk(profile)) {
@@ -188,10 +193,10 @@ public class Profiles {
                     .map(Path::toFile)
                     .forEach(File::delete);
         } catch (IOException e) {
-            System.out.println("Profile was not deleted.");
+            System.out.println("[Options Profiles] Profile was not deleted.");
             e.printStackTrace();
         }
 
-        System.out.println("Profile deleted.");
+        System.out.println("[Options Profiles] Profile deleted.");
     }
 }
