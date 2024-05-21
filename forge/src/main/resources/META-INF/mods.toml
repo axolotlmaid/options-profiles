@@ -26,10 +26,3 @@ mandatory = true
 versionRange = "[1.20.4,)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.optionsprofiles]]
-modId = "architectury"
-mandatory = true
-versionRange = "[11.0.10,)"
-ordering = "AFTER"
-side = "BOTH"
