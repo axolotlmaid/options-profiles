@@ -27,4 +27,4 @@ Contact: hello@axolotlmaid.com
 
 Profiles Menu              | Edit Profile Screen       | Options Screen
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/AxolotlMaid/options-profiles/1.20.2/gallery/profiles-menu.png" alt="profiles list" width="500"/> | <img src="https://raw.githubusercontent.com/AxolotlMaid/options-profiles/1.20.2/gallery/edit-profile-screen.png" alt="edit profile screen" width="500"/> | <img src="https://raw.githubusercontent.com/AxolotlMaid/options-profiles/1.20.2/gallery/options-screen.png" alt="options screen" width="500"/>
+<img src="https://raw.githubusercontent.com/AxolotlMaid/options-profiles/1.20.4/gallery/profiles-menu.png" alt="profiles list" width="500"/> | <img src="https://raw.githubusercontent.com/AxolotlMaid/options-profiles/1.20.4/gallery/edit-profile-screen.png" alt="edit profile screen" width="500"/> | <img src="https://raw.githubusercontent.com/AxolotlMaid/options-profiles/1.20.4/gallery/options-screen.png" alt="options screen" width="500"/>
