@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles.profiles;
 
+import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.jellysquid.mods.sodium.client.SodiumClientMod;
@@ -17,7 +18,7 @@ public class SodiumConfigLoader {
 
             apply(configData);
         } catch (IOException e) {
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when loading Sodium's configuration", e);
         }
     }
 
@@ -44,7 +45,7 @@ public class SodiumConfigLoader {
         try {
             SodiumGameOptions.writeToDisk(SodiumClientMod.options());
         } catch (IOException e) {
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when loading Sodium's configuration", e);
         }
     }
 

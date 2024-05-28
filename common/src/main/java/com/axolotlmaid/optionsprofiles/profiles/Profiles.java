@@ -115,7 +115,7 @@ public class Profiles {
 
             return linesOptions.equals(linesProfileOptions);
         } catch (IOException e) {
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when checking if a profile is loaded", e);
         }
 
         return false;

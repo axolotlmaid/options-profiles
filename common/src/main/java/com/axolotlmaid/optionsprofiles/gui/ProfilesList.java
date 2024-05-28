@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
@@ -38,8 +39,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
                 this.addEntry(new ProfilesList.ProfileEntry(Component.literal(profile.getFileName().toString())));
             }
         } catch (Exception e) {
-            System.out.println("An error occurred when listing profiles.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when listing profiles", e);
         }
     }
 
