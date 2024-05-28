@@ -1,5 +1,7 @@
 package com.axolotlmaid.optionsprofiles.profiles;
 
+import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,15 +26,14 @@ public class Profiles {
             Files.createDirectory(profile);
 
             if (Files.exists(profile)) {
-                System.out.println("[Options Profiles] Profile created.");
+                OptionsProfilesMod.LOGGER.info("Profile created");
 
                 writeOptionsFilesIntoProfile(profileName);
             } else {
-                System.out.println("[Options Profiles] Profile was not created successfully.");
+                OptionsProfilesMod.LOGGER.warn("Profile was not created successfully");
             }
         } catch (IOException e) {
-            System.out.println("[Options Profiles] An error occurred when creating a profile.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when creating a profile", e);
         }
     }
 
@@ -57,13 +58,11 @@ public class Profiles {
                     Files.write(profileOptions, line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
                     Files.write(profileOptions, "\n".getBytes(), StandardOpenOption.APPEND);
                 } catch (IOException e) {
-                    System.out.println("[Options Profiles] An error occurred when writing a profile.");
-                    e.printStackTrace();
+                    OptionsProfilesMod.LOGGER.error("An error occurred when writing a profile", e);
                 }
             });
         } catch (IOException e) {
-            System.out.println("[Options Profiles] An error occurred when reading an options file.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when reading an options file.", e);
         }
     }
 
@@ -136,13 +135,11 @@ public class Profiles {
                     Files.write(options, line.getBytes(), StandardOpenOption.APPEND);
                     Files.write(options, "\n".getBytes(), StandardOpenOption.APPEND);
                 } catch (IOException e) {
-                    System.out.println("[Options Profiles] An error occurred when loading a profile.");
-                    e.printStackTrace();
+                    OptionsProfilesMod.LOGGER.error("An error occurred when loading a profile", e);
                 }
             });
         } catch (IOException e) {
-            System.out.println("[Options Profiles] An error occurred when loading a profile.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when loading a profile", e);
         }
     }
 
@@ -168,19 +165,18 @@ public class Profiles {
         Path newProfile = Paths.get("options-profiles/" + newProfileName);
 
         if (Files.exists(newProfile))
-            System.out.println("[Options Profiles] New profile already exists!");
+            OptionsProfilesMod.LOGGER.warn("A profile with that name already exists!");
 
         try {
             Files.move(profile, newProfile);
 
             if (Files.exists(newProfile)) {
-                System.out.println("[Options Profiles] Profile renamed.");
+                OptionsProfilesMod.LOGGER.info("Profile renamed");
             } else {
-                System.out.println("[Options Profiles] Profile was not renamed successfully.");
+                OptionsProfilesMod.LOGGER.warn("Profile was not renamed successfully!");
             }
         } catch (IOException e) {
-            System.out.println("[Options Profiles] Profile was not renamed successfully.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("Profile not renamed successfully", e);
         }
     }
 
@@ -193,10 +189,9 @@ public class Profiles {
                     .map(Path::toFile)
                     .forEach(File::delete);
         } catch (IOException e) {
-            System.out.println("[Options Profiles] Profile was not deleted.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("Profile was not deleted", e);
         }
 
-        System.out.println("[Options Profiles] Profile deleted.");
+        OptionsProfilesMod.LOGGER.info("Profile deleted");
     }
 }

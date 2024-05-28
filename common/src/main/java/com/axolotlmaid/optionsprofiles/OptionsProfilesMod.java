@@ -1,5 +1,8 @@
 package com.axolotlmaid.optionsprofiles;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,6 +10,7 @@ import java.nio.file.Paths;
 
 public class OptionsProfilesMod {
     public static final String MOD_ID = "optionsprofiles";
+    public static final Logger LOGGER = LogManager.getLogger("Options Profiles");
 
     public static void init() {
         Path profilesDirectory = Paths.get("options-profiles");
@@ -15,8 +19,7 @@ public class OptionsProfilesMod {
             try {
                 Files.createDirectory(profilesDirectory);
             } catch (IOException e) {
-                System.out.println("An error occurred when creating the 'options-profiles' directory.");
-                e.printStackTrace();
+                LOGGER.error("An error occurred when creating the 'options-profiles' directory.", e);
             }
         }
     }
