@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.profiles.OldProfiles;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -22,7 +23,7 @@ public class ProfilesScreen extends Screen {
 
         // buttons
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.save-current-options"), (button) -> {
-            new Profiles().createProfile();
+            Profiles.createProfile();
             this.profilesList.refreshEntries();
         }).size(150, 20).pos(this.width / 2 - 155, this.height - 29).build());
 

@@ -64,7 +64,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
             }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.edit-profile")).build();
 
             this.loadButton = Button.builder(Component.translatable("gui.optionsprofiles.load-profile"), (button) -> {
-                new Profiles().loadProfile(profileName.getString());
+                Profiles.loadProfile(profileName.getString());
 
                 minecraft.options.load();
                 minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
@@ -75,7 +75,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
                 button.active = false;
             }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.load-profile")).build();
 
-            this.loadButton.active = !new Profiles().isProfileLoaded(profileName.getString());
+            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
         }
 
         public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {

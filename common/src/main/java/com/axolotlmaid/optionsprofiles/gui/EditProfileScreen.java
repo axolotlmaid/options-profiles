@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.profiles.OldProfiles;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -27,17 +28,17 @@ public class EditProfileScreen extends Screen {
         this.addWidget(this.profileNameEdit);
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.overwrite-options"), (button) -> {
-            new Profiles().writeOptionsFilesIntoProfile(profileName.getString());
+            Profiles.writeProfile(profileName.getString());
             this.minecraft.setScreen(this.lastScreen);
         }).size(100, 20).pos(this.width / 2 - 50, 145).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.rename-profile"), (button) -> {
-            new Profiles().renameProfile(profileName.getString(), this.profileNameEdit.getValue());
+            Profiles.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
             this.minecraft.setScreen(new EditProfileScreen(lastScreen, Component.literal(this.profileNameEdit.getValue())));
         }).size(100, 20).pos(this.width / 2 - 50, 166).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.delete-profile").withStyle(ChatFormatting.RED), (button) -> {
-            new Profiles().deleteProfile(profileName.getString());
+            Profiles.deleteProfile(profileName.getString());
             this.minecraft.setScreen(this.lastScreen);
         }).size(100, 20).pos(5, this.height - 25).build());
 
