@@ -1,6 +1,5 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
-import com.axolotlmaid.optionsprofiles.profiles.OldProfiles;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
