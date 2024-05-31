@@ -27,9 +27,9 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     // modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 
-    // To add support for these mods
-    modImplementation "maven.modrinth:sodium:mc1.20.4-0.5.8"
-    modImplementation "maven.modrinth:sodium-extra:mc1.20.4-0.5.4"
+    // Mod implementations
+    modImplementation "maven.modrinth:sodium:mc1.20.6-0.5.8"
+    modImplementation "maven.modrinth:sodium-extra:mc1.20.6-0.5.5"
 }
 
 publishing {
