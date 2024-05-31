@@ -25,75 +25,75 @@ public class SodiumExtraConfigLoader {
     }
 
     private static void apply(ConfigData configData) {
-        SodiumExtraClientMod.options().animationSettings.animation = configData.animationSettings.animation;
-        SodiumExtraClientMod.options().animationSettings.water = configData.animationSettings.water;
-        SodiumExtraClientMod.options().animationSettings.lava = configData.animationSettings.lava;
-        SodiumExtraClientMod.options().animationSettings.fire = configData.animationSettings.fire;
-        SodiumExtraClientMod.options().animationSettings.portal = configData.animationSettings.portal;
-        SodiumExtraClientMod.options().animationSettings.blockAnimations = configData.animationSettings.block_animations;
-        SodiumExtraClientMod.options().animationSettings.sculkSensor = configData.animationSettings.sculk_sensor;
+        SodiumExtraClientMod.options().animationSettings.animation = configData.animation_settings.animation;
+        SodiumExtraClientMod.options().animationSettings.water = configData.animation_settings.water;
+        SodiumExtraClientMod.options().animationSettings.lava = configData.animation_settings.lava;
+        SodiumExtraClientMod.options().animationSettings.fire = configData.animation_settings.fire;
+        SodiumExtraClientMod.options().animationSettings.portal = configData.animation_settings.portal;
+        SodiumExtraClientMod.options().animationSettings.blockAnimations = configData.animation_settings.block_animations;
+        SodiumExtraClientMod.options().animationSettings.sculkSensor = configData.animation_settings.sculk_sensor;
 
-        SodiumExtraClientMod.options().particleSettings.particles = configData.particleSettings.particles;
-        SodiumExtraClientMod.options().particleSettings.rainSplash = configData.particleSettings.rain_splash;
-        SodiumExtraClientMod.options().particleSettings.blockBreak = configData.particleSettings.block_break;
-        SodiumExtraClientMod.options().particleSettings.blockBreaking = configData.particleSettings.block_breaking;
-        SodiumExtraClientMod.options().particleSettings.otherMap = configData.particleSettings.other;
+        SodiumExtraClientMod.options().particleSettings.particles = configData.particle_settings.particles;
+        SodiumExtraClientMod.options().particleSettings.rainSplash = configData.particle_settings.rain_splash;
+        SodiumExtraClientMod.options().particleSettings.blockBreak = configData.particle_settings.block_break;
+        SodiumExtraClientMod.options().particleSettings.blockBreaking = configData.particle_settings.block_breaking;
+        SodiumExtraClientMod.options().particleSettings.otherMap = configData.particle_settings.other;
 
-        SodiumExtraClientMod.options().detailSettings.sky = configData.detailSettings.sky;
-        SodiumExtraClientMod.options().detailSettings.sunMoon = configData.detailSettings.sun_moon;
-        SodiumExtraClientMod.options().detailSettings.stars = configData.detailSettings.stars;
-        SodiumExtraClientMod.options().detailSettings.rainSnow = configData.detailSettings.rain_snow;
-        SodiumExtraClientMod.options().detailSettings.biomeColors = configData.detailSettings.biome_colors;
-        SodiumExtraClientMod.options().detailSettings.skyColors = configData.detailSettings.sky_colors;
+        SodiumExtraClientMod.options().detailSettings.sky = configData.detail_settings.sky;
+        SodiumExtraClientMod.options().detailSettings.sunMoon = configData.detail_settings.sun_moon;
+        SodiumExtraClientMod.options().detailSettings.stars = configData.detail_settings.stars;
+        SodiumExtraClientMod.options().detailSettings.rainSnow = configData.detail_settings.rain_snow;
+        SodiumExtraClientMod.options().detailSettings.biomeColors = configData.detail_settings.biome_colors;
+        SodiumExtraClientMod.options().detailSettings.skyColors = configData.detail_settings.sky_colors;
 
-        SodiumExtraClientMod.options().renderSettings.fogDistance = configData.renderSettings.fog_distance;
-        SodiumExtraClientMod.options().renderSettings.fogStart = configData.renderSettings.fog_start;
-        SodiumExtraClientMod.options().renderSettings.multiDimensionFogControl = configData.renderSettings.multi_dimension_fog_control;
-        SodiumExtraClientMod.options().renderSettings.dimensionFogDistanceMap = configData.renderSettings.dimensionFogDistance;
-        SodiumExtraClientMod.options().renderSettings.lightUpdates = configData.renderSettings.light_updates;
-        SodiumExtraClientMod.options().renderSettings.itemFrame = configData.renderSettings.item_frame;
-        SodiumExtraClientMod.options().renderSettings.armorStand = configData.renderSettings.armor_stand;
-        SodiumExtraClientMod.options().renderSettings.painting = configData.renderSettings.painting;
-        SodiumExtraClientMod.options().renderSettings.piston = configData.renderSettings.piston;
-        SodiumExtraClientMod.options().renderSettings.beaconBeam = configData.renderSettings.beacon_beam;
-        SodiumExtraClientMod.options().renderSettings.enchantingTableBook = configData.renderSettings.enchanting_table_book;
-        SodiumExtraClientMod.options().renderSettings.itemFrameNameTag = configData.renderSettings.item_frame_name_tag;
-        SodiumExtraClientMod.options().renderSettings.playerNameTag = configData.renderSettings.player_name_tag;
+        SodiumExtraClientMod.options().renderSettings.fogDistance = configData.render_settings.fog_distance;
+        SodiumExtraClientMod.options().renderSettings.fogStart = configData.render_settings.fog_start;
+        SodiumExtraClientMod.options().renderSettings.multiDimensionFogControl = configData.render_settings.multi_dimension_fog_control;
+        SodiumExtraClientMod.options().renderSettings.dimensionFogDistanceMap = configData.render_settings.dimensionFogDistance;
+        SodiumExtraClientMod.options().renderSettings.lightUpdates = configData.render_settings.light_updates;
+        SodiumExtraClientMod.options().renderSettings.itemFrame = configData.render_settings.item_frame;
+        SodiumExtraClientMod.options().renderSettings.armorStand = configData.render_settings.armor_stand;
+        SodiumExtraClientMod.options().renderSettings.painting = configData.render_settings.painting;
+        SodiumExtraClientMod.options().renderSettings.piston = configData.render_settings.piston;
+        SodiumExtraClientMod.options().renderSettings.beaconBeam = configData.render_settings.beacon_beam;
+        SodiumExtraClientMod.options().renderSettings.enchantingTableBook = configData.render_settings.enchanting_table_book;
+        SodiumExtraClientMod.options().renderSettings.itemFrameNameTag = configData.render_settings.item_frame_name_tag;
+        SodiumExtraClientMod.options().renderSettings.playerNameTag = configData.render_settings.player_name_tag;
 
-        SodiumExtraClientMod.options().extraSettings.overlayCorner = SodiumExtraGameOptions.OverlayCorner.valueOf(configData.extraSettings.overlay_corner);
-        SodiumExtraClientMod.options().extraSettings.textContrast = SodiumExtraGameOptions.TextContrast.valueOf(configData.extraSettings.text_contrast);
-        SodiumExtraClientMod.options().extraSettings.showFps = configData.extraSettings.show_fps;
-        SodiumExtraClientMod.options().extraSettings.showFPSExtended = configData.extraSettings.show_f_p_s_extended;
-        SodiumExtraClientMod.options().extraSettings.showCoords = configData.extraSettings.show_coords;
-        SodiumExtraClientMod.options().extraSettings.reduceResolutionOnMac = configData.extraSettings.reduce_resolution_on_mac;
-        SodiumExtraClientMod.options().extraSettings.useAdaptiveSync = configData.extraSettings.use_adaptive_sync;
-        SodiumExtraClientMod.options().extraSettings.cloudHeight = configData.extraSettings.cloud_height;
-        SodiumExtraClientMod.options().extraSettings.cloudDistance = configData.extraSettings.cloud_distance;
-        SodiumExtraClientMod.options().extraSettings.toasts = configData.extraSettings.toasts;
-        SodiumExtraClientMod.options().extraSettings.advancementToast = configData.extraSettings.advancement_toast;
-        SodiumExtraClientMod.options().extraSettings.recipeToast = configData.extraSettings.recipe_toast;
-        SodiumExtraClientMod.options().extraSettings.systemToast = configData.extraSettings.system_toast;
-        SodiumExtraClientMod.options().extraSettings.tutorialToast = configData.extraSettings.tutorial_toast;
-        SodiumExtraClientMod.options().extraSettings.instantSneak = configData.extraSettings.instant_sneak;
-        SodiumExtraClientMod.options().extraSettings.preventShaders = configData.extraSettings.prevent_shaders;
-        SodiumExtraClientMod.options().extraSettings.steadyDebugHud = configData.extraSettings.steady_debug_hud;
-        SodiumExtraClientMod.options().extraSettings.steadyDebugHudRefreshInterval = configData.extraSettings.steady_debug_hud_refresh_interval;
+        SodiumExtraClientMod.options().extraSettings.overlayCorner = SodiumExtraGameOptions.OverlayCorner.valueOf(configData.extra_settings.overlay_corner);
+        SodiumExtraClientMod.options().extraSettings.textContrast = SodiumExtraGameOptions.TextContrast.valueOf(configData.extra_settings.text_contrast);
+        SodiumExtraClientMod.options().extraSettings.showFps = configData.extra_settings.show_fps;
+        SodiumExtraClientMod.options().extraSettings.showFPSExtended = configData.extra_settings.show_f_p_s_extended;
+        SodiumExtraClientMod.options().extraSettings.showCoords = configData.extra_settings.show_coords;
+        SodiumExtraClientMod.options().extraSettings.reduceResolutionOnMac = configData.extra_settings.reduce_resolution_on_mac;
+        SodiumExtraClientMod.options().extraSettings.useAdaptiveSync = configData.extra_settings.use_adaptive_sync;
+        SodiumExtraClientMod.options().extraSettings.cloudHeight = configData.extra_settings.cloud_height;
+        SodiumExtraClientMod.options().extraSettings.cloudDistance = configData.extra_settings.cloud_distance;
+        SodiumExtraClientMod.options().extraSettings.toasts = configData.extra_settings.toasts;
+        SodiumExtraClientMod.options().extraSettings.advancementToast = configData.extra_settings.advancement_toast;
+        SodiumExtraClientMod.options().extraSettings.recipeToast = configData.extra_settings.recipe_toast;
+        SodiumExtraClientMod.options().extraSettings.systemToast = configData.extra_settings.system_toast;
+        SodiumExtraClientMod.options().extraSettings.tutorialToast = configData.extra_settings.tutorial_toast;
+        SodiumExtraClientMod.options().extraSettings.instantSneak = configData.extra_settings.instant_sneak;
+        SodiumExtraClientMod.options().extraSettings.preventShaders = configData.extra_settings.prevent_shaders;
+        SodiumExtraClientMod.options().extraSettings.steadyDebugHud = configData.extra_settings.steady_debug_hud;
+        SodiumExtraClientMod.options().extraSettings.steadyDebugHudRefreshInterval = configData.extra_settings.steady_debug_hud_refresh_interval;
 
-        SodiumExtraClientMod.options().superSecretSettings.fetchSodiumExtraCrowdinTranslations = configData.superSecretSettings.fetch_sodium_extra_crowdin_translations;
-        SodiumExtraClientMod.options().superSecretSettings.sodiumExtraCrowdinProjectIdentifier = configData.superSecretSettings.sodium_extra_crowdin_project_identifier;
-        SodiumExtraClientMod.options().superSecretSettings.fetchSodiumCrowdinTranslations = configData.superSecretSettings.fetch_sodium_crowdin_translations;
-        SodiumExtraClientMod.options().superSecretSettings.sodiumCrowdinProjectIdentifier = configData.superSecretSettings.sodium_crowdin_project_identifier;
+        SodiumExtraClientMod.options().superSecretSettings.fetchSodiumExtraCrowdinTranslations = configData.super_secret_settings.fetch_sodium_extra_crowdin_translations;
+        SodiumExtraClientMod.options().superSecretSettings.sodiumExtraCrowdinProjectIdentifier = configData.super_secret_settings.sodium_extra_crowdin_project_identifier;
+        SodiumExtraClientMod.options().superSecretSettings.fetchSodiumCrowdinTranslations = configData.super_secret_settings.fetch_sodium_crowdin_translations;
+        SodiumExtraClientMod.options().superSecretSettings.sodiumCrowdinProjectIdentifier = configData.super_secret_settings.sodium_crowdin_project_identifier;
 
         SodiumExtraClientMod.options().writeChanges();
     }
 
     public static class ConfigData {
-        public AnimationSettings animationSettings;
-        public ParticleSettings particleSettings;
-        public DetailSettings detailSettings;
-        public RenderSettings renderSettings;
-        public ExtraSettings extraSettings;
-        public SuperSecretSettings superSecretSettings;
+        public AnimationSettings animation_settings;
+        public ParticleSettings particle_settings;
+        public DetailSettings detail_settings;
+        public RenderSettings render_settings;
+        public ExtraSettings extra_settings;
+        public SuperSecretSettings super_secret_settings;
 
         public static class AnimationSettings {
             public boolean animation;
