@@ -79,11 +79,6 @@ public class SodiumExtraConfigLoader {
         SodiumExtraClientMod.options().extraSettings.steadyDebugHud = configData.extra_settings.steady_debug_hud;
         SodiumExtraClientMod.options().extraSettings.steadyDebugHudRefreshInterval = configData.extra_settings.steady_debug_hud_refresh_interval;
 
-        SodiumExtraClientMod.options().superSecretSettings.fetchSodiumExtraCrowdinTranslations = configData.super_secret_settings.fetch_sodium_extra_crowdin_translations;
-        SodiumExtraClientMod.options().superSecretSettings.sodiumExtraCrowdinProjectIdentifier = configData.super_secret_settings.sodium_extra_crowdin_project_identifier;
-        SodiumExtraClientMod.options().superSecretSettings.fetchSodiumCrowdinTranslations = configData.super_secret_settings.fetch_sodium_crowdin_translations;
-        SodiumExtraClientMod.options().superSecretSettings.sodiumCrowdinProjectIdentifier = configData.super_secret_settings.sodium_crowdin_project_identifier;
-
         SodiumExtraClientMod.options().writeChanges();
     }
 
@@ -93,7 +88,6 @@ public class SodiumExtraConfigLoader {
         public DetailSettings detail_settings;
         public RenderSettings render_settings;
         public ExtraSettings extra_settings;
-        public SuperSecretSettings super_secret_settings;
 
         public static class AnimationSettings {
             public boolean animation;
@@ -157,13 +151,6 @@ public class SodiumExtraConfigLoader {
             public boolean prevent_shaders;
             public boolean steady_debug_hud;
             public int steady_debug_hud_refresh_interval;
-        }
-
-        public static class SuperSecretSettings {
-            public boolean fetch_sodium_extra_crowdin_translations;
-            public String sodium_extra_crowdin_project_identifier;
-            public boolean fetch_sodium_crowdin_translations;
-            public String sodium_crowdin_project_identifier;
         }
     }
 }
