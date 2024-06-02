@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[50,)"
+loaderVersion = "[2,)"
 #issueTrackerURL = ""
 license = "GNU GPL 3.0"
 
@@ -14,15 +14,18 @@ Load and save your options from in-game.
 logoFile = "icon.png"
 
 [[dependencies.optionsprofiles]]
-modId = "forge"
-mandatory = true
-versionRange = "[50,)"
+modId = "neoforge"
+type = "required"
+versionRange = "[20.6,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.optionsprofiles]]
 modId = "minecraft"
-mandatory = true
+type = "required"
 versionRange = "[1.20.6,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[mixins]]
+config = "optionsprofiles.mixins.json"
