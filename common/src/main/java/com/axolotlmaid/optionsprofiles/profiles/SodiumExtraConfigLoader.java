@@ -56,6 +56,7 @@ public class SodiumExtraConfigLoader {
         SodiumExtraClientMod.options().renderSettings.painting = configData.render_settings.painting;
         SodiumExtraClientMod.options().renderSettings.piston = configData.render_settings.piston;
         SodiumExtraClientMod.options().renderSettings.beaconBeam = configData.render_settings.beacon_beam;
+        SodiumExtraClientMod.options().renderSettings.limitBeaconBeamHeight = configData.render_settings.limit_beacon_beam_height;
         SodiumExtraClientMod.options().renderSettings.enchantingTableBook = configData.render_settings.enchanting_table_book;
         SodiumExtraClientMod.options().renderSettings.itemFrameNameTag = configData.render_settings.item_frame_name_tag;
         SodiumExtraClientMod.options().renderSettings.playerNameTag = configData.render_settings.player_name_tag;
@@ -127,6 +128,7 @@ public class SodiumExtraConfigLoader {
             public boolean painting;
             public boolean piston;
             public boolean beacon_beam;
+            public boolean limit_beacon_beam_height;
             public boolean enchanting_table_book;
             public boolean item_frame_name_tag;
             public boolean player_name_tag;

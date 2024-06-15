@@ -2,8 +2,8 @@ package com.axolotlmaid.optionsprofiles.mixin;
 
 import com.axolotlmaid.optionsprofiles.gui.ProfilesScreen;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.OptionsScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
