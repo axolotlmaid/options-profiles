@@ -8,6 +8,7 @@
   "gui.optionsprofiles.profile-name-text": "Профиль исеме",
   "gui.optionsprofiles.overwrite-options": "перезапись",
   "gui.optionsprofiles.rename-profile": "переименовывать",
+  "gui.optionsprofiles.keybindings-only": "Контрольләр генә",
   "gui.optionsprofiles.delete-profile": "бетерү",
 
   "modmenu.summaryTranslation.options-profiles": "Хәзерге көйләүләр профильләрен саклагыз һәм уеннан чыгусыз йөкләгез.",

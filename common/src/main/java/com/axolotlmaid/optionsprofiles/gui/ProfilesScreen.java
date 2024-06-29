@@ -20,15 +20,24 @@ public class ProfilesScreen extends Screen {
         this.profilesList = new ProfilesList(this, this.minecraft);
         this.addWidget(this.profilesList);
 
-        // buttons
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.save-current-options"), (button) -> {
-            Profiles.createProfile();
-            this.profilesList.refreshEntries();
-        }).size(150, 20).pos(this.width / 2 - 155, this.height - 29).build());
+        this.addRenderableWidget(
+                Button.builder(
+                                Component.translatable("gui.optionsprofiles.save-current-options"),
+                                (button) -> {
+                                    Profiles.createProfile();
+                                    this.profilesList.refreshEntries();
+                                })
+                        .size(150, 20)
+                        .pos(this.width / 2 - 155, this.height - 29)
+                        .build());
 
-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-            this.minecraft.setScreen(this.lastScreen);
-        }).size(150, 20).pos(this.width / 2 + 5, this.height - 29).build());
+        this.addRenderableWidget(
+                Button.builder(
+                                CommonComponents.GUI_DONE,
+                                (button) -> this.minecraft.setScreen(this.lastScreen))
+                        .size(150, 20)
+                        .pos(this.width / 2 + 5, this.height - 29)
+                        .build());
     }
 
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {

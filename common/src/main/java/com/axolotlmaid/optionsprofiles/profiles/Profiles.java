@@ -27,13 +27,13 @@ public class Profiles {
             paths.filter(Files::isDirectory)
                     .forEach(path -> {
                         Path configurationFile = path.resolve("configuration.json");
-                        if (!Files.exists(configurationFile)) {
+                        if (Files.notExists(configurationFile)) {
                             String profileName = path.getFileName().toString();
 
                             // Create configuration.json
-                            new ProfileConfiguration().save(profileName);
+                            ProfileConfiguration.get(profileName);
 
-                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile updated", profileName);
+                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile configuration added", profileName);
                         }
                     });
         } catch (IOException e) {
@@ -89,7 +89,7 @@ public class Profiles {
             }
         } else {
             // Create configuration.json
-            new ProfileConfiguration().save(profileName);
+            ProfileConfiguration.get(profileName);
         }
 
         copyOptionFile(profile, OPTIONS_FILE);

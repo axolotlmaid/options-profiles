@@ -18,8 +18,12 @@ public class MixinOptionsScreen extends Screen {
 
     @Inject(at = @At("HEAD"), method = "init")
     private void init(CallbackInfo info) {
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.profiles-menu"), (button) -> {
-            this.minecraft.setScreen(new ProfilesScreen(this));
-        }).width(100).pos(5, 5).build());
+        this.addRenderableWidget(
+                Button.builder(
+                                Component.translatable("gui.optionsprofiles.profiles-menu"),
+                                (button) -> this.minecraft.setScreen(new ProfilesScreen(this)))
+                        .width(100)
+                        .pos(5, 5)
+                        .build());
     }
 }

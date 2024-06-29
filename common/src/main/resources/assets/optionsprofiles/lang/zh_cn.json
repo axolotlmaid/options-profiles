@@ -8,5 +8,6 @@
   "gui.optionsprofiles.profile-name-text": "预设名",
   "gui.optionsprofiles.overwrite-options": "覆盖",
   "gui.optionsprofiles.rename-profile": "重命名",
+  "gui.optionsprofiles.keybindings-only": "仅按键绑定",
   "gui.optionsprofiles.delete-profile": "删除"
 }

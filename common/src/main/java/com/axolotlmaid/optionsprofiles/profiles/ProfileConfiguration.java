@@ -12,14 +12,12 @@ import java.nio.file.Path;
 
 public class ProfileConfiguration {
     private static final Path profilesDirectory = Profiles.PROFILES_DIRECTORY;
+    private static Path configurationFile;
 
     private boolean keybindingsOnly = false;
 
-    public ProfileConfiguration save(String profileName) {
+    public ProfileConfiguration save() {
         ProfileConfiguration configuration = new ProfileConfiguration();
-
-        Path profile = profilesDirectory.resolve(profileName);
-        Path configurationFile = profile.resolve("configuration.json");
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -38,7 +36,11 @@ public class ProfileConfiguration {
         ProfileConfiguration configuration = new ProfileConfiguration();
 
         Path profile = profilesDirectory.resolve(profileName);
-        Path configurationFile = profile.resolve("configuration.json");
+        configurationFile = profile.resolve("configuration.json");
+
+        if (Files.notExists(configurationFile)) {
+            configuration.save();
+        }
 
         try (BufferedReader reader = Files.newBufferedReader(configurationFile)) {
             Gson gson = new Gson();

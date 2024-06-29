@@ -8,5 +8,6 @@
   "gui.optionsprofiles.profile-name-text": "Profile Name",
   "gui.optionsprofiles.overwrite-options": "Overwrite",
   "gui.optionsprofiles.rename-profile": "Rename",
+  "gui.optionsprofiles.keybindings-only": "Keybindings Only",
   "gui.optionsprofiles.delete-profile": "Delete"
 }

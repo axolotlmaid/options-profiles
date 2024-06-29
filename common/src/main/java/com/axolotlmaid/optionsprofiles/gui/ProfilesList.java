@@ -59,21 +59,27 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         ProfileEntry(Component profileName) {
             this.profileName = profileName;
 
-            this.editButton = Button.builder(Component.translatable("gui.optionsprofiles.edit-profile"), (button) -> {
-                minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName));
-            }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.edit-profile")).build();
+            this.editButton = Button.builder(
+                            Component.translatable("gui.optionsprofiles.edit-profile"),
+                            (button) -> minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName)))
+                    .size(75, 20)
+                    .build();
 
-            this.loadButton = Button.builder(Component.translatable("gui.optionsprofiles.load-profile"), (button) -> {
-                Profiles.loadProfile(profileName.getString());
+            this.loadButton = Button.builder(
+                            Component.translatable("gui.optionsprofiles.load-profile"),
+                            (button) -> {
+                                Profiles.loadProfile(profileName.getString());
 
-                minecraft.options.load();
-                minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
-                minecraft.reloadResourcePacks();
+                                minecraft.options.load();
+                                minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
+                                minecraft.reloadResourcePacks();
 
-                minecraft.options.save();
+                                minecraft.options.save();
 
-                button.active = false;
-            }).size(75, 20).createNarration((supplier) -> Component.translatable("gui.optionsprofiles.load-profile")).build();
+                                button.active = false;
+                            })
+                    .size(75, 20)
+                    .build();
 
             this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
         }

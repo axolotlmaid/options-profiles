@@ -1,9 +1,11 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.profiles.ProfileConfiguration;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
@@ -14,6 +16,7 @@ public class EditProfileScreen extends Screen {
     private final Component profileName;
 
     private EditBox profileNameEdit;
+    private Checkbox keybindingsOnlyCheckbox;
 
     public EditProfileScreen(Screen screen, Component profileName) {
         super(Component.literal(Component.translatable("gui.optionsprofiles.editing-profile-title").getString() + profileName.getString()));
@@ -22,28 +25,65 @@ public class EditProfileScreen extends Screen {
     }
 
     protected void init() {
+        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName.getString());
+
         this.profileNameEdit = new EditBox(this.font, this.width / 2 - 102, 116, 204, 20, Component.empty());
         this.profileNameEdit.setValue(profileName.getString());
         this.addWidget(this.profileNameEdit);
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.overwrite-options"), (button) -> {
-            Profiles.writeProfile(profileName.getString(), true);
-            this.minecraft.setScreen(this.lastScreen);
-        }).size(100, 20).pos(this.width / 2 - 50, 145).build());
+        this.keybindingsOnlyCheckbox = Checkbox.builder(
+                        Component.translatable("gui.optionsprofiles.keybindings-only"),
+                        this.font)
+                .pos(5, this.height - 45)
+                .selected(profileConfiguration.isKeybindingsOnly())
+                .build();
+        this.addRenderableWidget(this.keybindingsOnlyCheckbox);
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.rename-profile"), (button) -> {
-            Profiles.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
-            this.minecraft.setScreen(new EditProfileScreen(lastScreen, Component.literal(this.profileNameEdit.getValue())));
-        }).size(100, 20).pos(this.width / 2 - 50, 166).build());
+        this.addRenderableWidget(
+                Button.builder(
+                                Component.translatable("gui.optionsprofiles.overwrite-options"),
+                                (button) -> {
+                                    Profiles.writeProfile(profileName.getString(), true);
+                                    this.minecraft.setScreen(this.lastScreen);
+                                })
+                        .size(100, 20)
+                        .pos(this.width / 2 - 50, 145)
+                        .build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.optionsprofiles.delete-profile").withStyle(ChatFormatting.RED), (button) -> {
-            Profiles.deleteProfile(profileName.getString());
-            this.minecraft.setScreen(this.lastScreen);
-        }).size(100, 20).pos(5, this.height - 25).build());
+        this.addRenderableWidget(
+                Button.builder(
+                                Component.translatable("gui.optionsprofiles.rename-profile"),
+                                (button) -> {
+                                    Profiles.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
+                                    this.minecraft.setScreen(new EditProfileScreen(lastScreen, Component.literal(this.profileNameEdit.getValue())));
+                                })
+                        .size(100, 20)
+                        .pos(this.width / 2 - 50, 166)
+                        .build());
 
-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (button) -> {
-            this.minecraft.setScreen(this.lastScreen);
-        }).size(100, 20).pos(this.width / 2 - 50, this.height - 40).build());
+        this.addRenderableWidget(
+                Button.builder(
+                                Component.translatable("gui.optionsprofiles.delete-profile")
+                                        .withStyle(ChatFormatting.RED),
+                                (button) -> {
+                                    Profiles.deleteProfile(profileName.getString());
+                                    this.minecraft.setScreen(this.lastScreen);
+                                })
+                        .size(100, 20)
+                        .pos(5, this.height - 25)
+                        .build());
+
+        this.addRenderableWidget(
+                Button.builder(
+                                CommonComponents.GUI_DONE,
+                                (button) -> {
+                                    profileConfiguration.setKeybindingsOnly(keybindingsOnlyCheckbox.selected());
+                                    profileConfiguration.save();
+                                    this.minecraft.setScreen(this.lastScreen);
+                                })
+                        .size(100, 20)
+                        .pos(this.width / 2 - 50, this.height - 40)
+                        .build());
     }
 
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
