@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles;
 
+import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,5 +23,7 @@ public class OptionsProfilesMod {
                 LOGGER.error("An error occurred when creating the 'options-profiles' directory.", e);
             }
         }
+
+        Profiles.updateProfiles();
     }
 }

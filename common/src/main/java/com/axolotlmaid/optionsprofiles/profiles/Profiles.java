@@ -12,13 +12,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class Profiles {
-    private static final Path PROFILES_DIRECTORY = Paths.get("options-profiles");
-    private static final Path OPTIONS_FILE = Paths.get("options.txt");
-    private static final Path OPTIFINE_OPTIONS_FILE = Paths.get("optionsof.txt");
-    private static final Path SODIUM_OPTIONS_FILE = Paths.get("config/sodium-options.json");
-    private static final Path SODIUM_EXTRA_OPTIONS_FILE = Paths.get("config/sodium-extra-options.json");
+    public static final Path PROFILES_DIRECTORY = Paths.get("options-profiles/");
+    public static final Path OPTIONS_FILE = Paths.get("options.txt");
+    public static final Path OPTIFINE_OPTIONS_FILE = Paths.get("optionsof.txt");
+    public static final Path SODIUM_OPTIONS_FILE = Paths.get("config/sodium-options.json");
+    public static final Path SODIUM_EXTRA_OPTIONS_FILE = Paths.get("config/sodium-extra-options.json");
+
+    // This function goes through every profile and adds a configuration file if it doesn't exist
+    public static void updateProfiles() {
+        try (Stream<Path> paths = Files.list(PROFILES_DIRECTORY)) {
+            paths.filter(Files::isDirectory)
+                    .forEach(path -> {
+                        Path configurationFile = path.resolve("configuration.json");
+                        if (!Files.exists(configurationFile)) {
+                            String profileName = path.getFileName().toString();
+
+                            // Create configuration.json
+                            new ProfileConfiguration().save(profileName);
+
+                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile updated", profileName);
+                        }
+                    });
+        } catch (IOException e) {
+            OptionsProfilesMod.LOGGER.error("An error occurred when updating profiles", e);
+        }
+    }
 
     public static void createProfile() {
         String profileName = "Profile 1";
@@ -35,7 +56,7 @@ public class Profiles {
 
             if (Files.exists(profile)) {
                 OptionsProfilesMod.LOGGER.info("[Profile '{}']: created", profileName);
-                writeProfile(profileName);
+                writeProfile(profileName, false);
             } else {
                 OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile already exists?", profileName);
             }
@@ -56,14 +77,19 @@ public class Profiles {
         }
     }
 
-    public static void writeProfile(String profileName) {
+    public static void writeProfile(String profileName, boolean overwriting) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
 
-        try {
-            // Removes old option files
-            FileUtils.cleanDirectory(profile.toFile());
-        } catch (IOException e) {
-            OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when clearing old options files", profileName, e);
+        if (overwriting) {
+            try {
+                // Removes old option files
+                FileUtils.cleanDirectory(profile.toFile());
+            } catch (IOException e) {
+                OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when clearing old options files", profileName, e);
+            }
+        } else {
+            // Create configuration.json
+            new ProfileConfiguration().save(profileName);
         }
 
         copyOptionFile(profile, OPTIONS_FILE);
