@@ -7,7 +7,12 @@
   "gui.optionsprofiles.editing-profile-title": "正在编辑：",
   "gui.optionsprofiles.profile-name-text": "预设名",
   "gui.optionsprofiles.overwrite-options": "覆盖",
+  "gui.optionsprofiles.overwrite-options.tooltip": "将配置文件选项替换为您当前的选项",
   "gui.optionsprofiles.rename-profile": "重命名",
-  "gui.optionsprofiles.keybindings-only": "仅按键绑定",
-  "gui.optionsprofiles.delete-profile": "删除"
+  "gui.optionsprofiles.delete-profile": "删除",
+
+  "gui.optionsprofiles.options-toggle": "选择要切换的选项",
+  "gui.optionsprofiles.options-toggle.tooltip": "选择您要加载到此配置文件中的选项",
+  "gui.optionsprofiles.all-on": "全部开启",
+  "gui.optionsprofiles.all-off": "关掉一切"
 }

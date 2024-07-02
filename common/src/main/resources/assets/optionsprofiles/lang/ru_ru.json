@@ -7,9 +7,14 @@
   "gui.optionsprofiles.editing-profile-title": "Изменение профиля: ",
   "gui.optionsprofiles.profile-name-text": "Имя профиля",
   "gui.optionsprofiles.overwrite-options": "Перезаписать",
+  "gui.optionsprofiles.overwrite-options.tooltip": "Заменяет параметры профиля на ваши текущие параметры",
   "gui.optionsprofiles.rename-profile": "Переименовать",
-  "gui.optionsprofiles.keybindings-only": "Только элементы управления",
   "gui.optionsprofiles.delete-profile": "удалить",
+
+  "gui.optionsprofiles.options-toggle": "Выберите параметры для переключения",
+  "gui.optionsprofiles.options-toggle.tooltip": "Выберите параметры, которые вы хотите загрузить в этот профиль",
+  "gui.optionsprofiles.all-on": "Включи всё",
+  "gui.optionsprofiles.all-off": "Все выключить",
 
   "modmenu.summaryTranslation.options-profiles": "Cохраняйте и загружайте профили настроек, не выходя из игры.",
   "modmenu.descriptionTranslation.options-profiles": "Мод, позволяющий сохранять профили текущих настроек и загружать их, не выходя из игры."

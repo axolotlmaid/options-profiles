@@ -7,7 +7,12 @@
   "gui.optionsprofiles.editing-profile-title": "Editing Profile: ",
   "gui.optionsprofiles.profile-name-text": "Profile Name",
   "gui.optionsprofiles.overwrite-options": "Overwrite",
+  "gui.optionsprofiles.overwrite-options.tooltip": "Replaces the profile's options with your current options",
   "gui.optionsprofiles.rename-profile": "Rename",
-  "gui.optionsprofiles.keybindings-only": "Keybindings Only",
-  "gui.optionsprofiles.delete-profile": "Delete"
+  "gui.optionsprofiles.delete-profile": "Delete",
+
+  "gui.optionsprofiles.options-toggle": "Select options to toggle",
+  "gui.optionsprofiles.options-toggle.tooltip": "Select the options you want to load in this profile",
+  "gui.optionsprofiles.all-on": "All ON",
+  "gui.optionsprofiles.all-off": "All OFF"
 }

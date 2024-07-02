@@ -24,6 +24,7 @@ public class MixinOptionsScreen extends Screen {
                                 (button) -> this.minecraft.setScreen(new ProfilesScreen(this)))
                         .width(100)
                         .pos(5, 5)
-                        .build());
+                        .build()
+        );
     }
 }
