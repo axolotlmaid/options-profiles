@@ -8,9 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -21,20 +19,38 @@ public class Profiles {
     public static final Path SODIUM_OPTIONS_FILE = Paths.get("config/sodium-options.json");
     public static final Path SODIUM_EXTRA_OPTIONS_FILE = Paths.get("config/sodium-extra-options.json");
 
-    // This function goes through every profile and adds a configuration file if it doesn't exist
+    // This function goes through every profile and updates / adds the configuration file if it doesn't exist
     public static void updateProfiles() {
         try (Stream<Path> paths = Files.list(PROFILES_DIRECTORY)) {
             paths.filter(Files::isDirectory)
                     .forEach(path -> {
-                        Path configurationFile = path.resolve("configuration.json");
-                        if (Files.notExists(configurationFile)) {
-                            String profileName = path.getFileName().toString();
+                        String profileName = path.getFileName().toString();
 
-                            // Create configuration.json
-                            ProfileConfiguration.get(profileName);
+                        // This gets the configuration but also creates the configuration file if it is not there
+                        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+                        List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
 
-                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile configuration added", profileName);
+                        // Checks for updates to the configuration
+                        if (profileConfiguration.getVersion() != ProfileConfiguration.configurationVersion) {
+                            Path configurationFile = path.resolve("configuration.json");
+
+                            try {
+                                Files.delete(configurationFile);
+                            } catch (IOException e) {
+                                OptionsProfilesMod.LOGGER.error("[Profile '{}']: Error deleting configuration file", profileName, e);
+                            }
+
+                            // Create the configuration.json again thus updating it
+                            profileConfiguration = ProfileConfiguration.get(profileName);
+
+                            // Add player's old configuration
+                            profileConfiguration.setOptionsToLoad(optionsToLoad);
+
+                            // Save configuration
+                            profileConfiguration.save();
                         }
+
+                        OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile configuration updated / added", profileName);
                     });
         } catch (IOException e) {
             OptionsProfilesMod.LOGGER.error("An error occurred when updating profiles", e);
@@ -79,6 +95,9 @@ public class Profiles {
 
     public static void writeProfile(String profileName, boolean overwriting) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
+        Path profileOptions = profile.resolve("options.txt");
+
+        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
 
         if (overwriting) {
             try {
@@ -87,15 +106,26 @@ public class Profiles {
             } catch (IOException e) {
                 OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when clearing old options files", profileName, e);
             }
-        } else {
-            // Create configuration.json
-            ProfileConfiguration.get(profileName);
         }
 
         copyOptionFile(profile, OPTIONS_FILE);
         copyOptionFile(profile, OPTIFINE_OPTIONS_FILE);
         copyOptionFile(profile, SODIUM_OPTIONS_FILE);
         copyOptionFile(profile, SODIUM_EXTRA_OPTIONS_FILE);
+
+        // Add every option value to configuration
+        try (Stream<String> lines = Files.lines(profileOptions)) {
+            List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
+
+            lines.forEach((line) -> {
+                String[] option = line.split(":");
+                optionsToLoad.add(option[0]);
+            });
+
+            profileConfiguration.save();
+        } catch (IOException e) {
+            OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when adding options to the configuration file", profileName, e);
+        }
     }
 
     public static boolean isProfileLoaded(String profileName) {
@@ -131,14 +161,68 @@ public class Profiles {
     }
 
     private static void loadOptionFile(String profileName, Path options) {
+        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
         Path profileOptions = profile.resolve(options.getFileName());
 
         if (Files.exists(profileOptions)) {
+            // This if statement is for loading specific options.
+            if (options.getFileName().toString().equals("options.txt")) {       // If file is options.txt - only doing options.txt for now
+                Map<String, String> optionsToWrite = new HashMap<>();
+
+                // Read options.txt
+                try (Stream<String> lines = Files.lines(options)) {
+                    lines.forEach(line -> {
+                        String[] option = line.split(":");            // Split key and value
+
+                        if (option.length > 1) {
+                            optionsToWrite.put(option[0], option[1]);           // Add them to the map
+                        } else {
+                            optionsToWrite.put(option[0], "");
+                        }
+                    });
+                } catch (IOException e) {
+                    OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred reading options.txt to load the profile", profileName, e);
+                }
+
+                // Read profile options.txt
+                try (Stream<String> lines = Files.lines(profileOptions)) {
+                    lines.forEach(line -> {
+                        String[] option = line.split(":");            // Split key and value
+
+                        if (option.length > 1) {
+                            if (profileConfiguration.getOptionsToLoad().contains(option[0])) {
+                                optionsToWrite.put(option[0], option[1]);       // Updates old value set by reading options.txt
+                            }
+                        }
+                    });
+                } catch (IOException e) {
+                    OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred reading profile options.txt to load the profile", profileName, e);
+                }
+
+                // Write into options.txt
+                try {
+                    Files.write(options, () ->
+                            optionsToWrite
+                                    .entrySet()
+                                    .stream()
+                                    .<CharSequence>map(entry -> entry.getKey() + ":" + entry.getValue())
+                                    .iterator()
+                    );
+
+                    OptionsProfilesMod.LOGGER.info("[Profile '{}']: '{}' loaded with specific options", profileName, options.getFileName());
+                } catch (IOException e) {
+                    OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred writing hashmap into options.txt", profileName, e);
+                }
+
+                return;         // Return the function, thus not running the next few lines
+            }
+
             try {
                 // Replaces the original option file with the profile option file
                 Files.copy(profileOptions, options, StandardCopyOption.REPLACE_EXISTING);
-                OptionsProfilesMod.LOGGER.info("[Profile '{}']: '{}' loaded", profileName, options.getFileName());
+                OptionsProfilesMod.LOGGER.info("[Profile '{}']: '{}' loaded by copying", profileName, options.getFileName());
             } catch (IOException e) {
                 OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when loading the profile", profileName, e);
             }
@@ -151,7 +235,7 @@ public class Profiles {
 
         if (Files.exists(profileOptions)) {
             loader.accept(profileOptions);
-            OptionsProfilesMod.LOGGER.info("[Profile '{}']: '{}' loaded", profileName, options.getFileName());
+            OptionsProfilesMod.LOGGER.info("[Profile '{}']: '{}' loaded using loader class", profileName, options.getFileName());
         }
     }
 

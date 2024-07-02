@@ -24,6 +24,7 @@ public class OptionsProfilesMod {
             }
         }
 
+        // Update / add configuration for existing profiles
         Profiles.updateProfiles();
     }
 }
