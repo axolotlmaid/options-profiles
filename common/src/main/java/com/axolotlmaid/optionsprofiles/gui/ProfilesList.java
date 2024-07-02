@@ -48,6 +48,12 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         } catch (Exception e) {
             OptionsProfilesMod.LOGGER.error("An error occurred when listing profiles", e);
         }
+
+        checkEntriesLoaded();
+    }
+
+    public void checkEntriesLoaded() {
+        this.children().forEach(Entry::checkLoaded);
     }
 
     protected int getScrollbarPosition() {
@@ -86,12 +92,11 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
 
                                 minecraft.options.save();
 
+                                ProfilesList.this.checkEntriesLoaded();
                                 button.active = false;
                             })
                     .size(75, 20)
                     .build();
-
-            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
         }
 
         public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
@@ -117,10 +122,16 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         public List<? extends NarratableEntry> narratables() {
             return ImmutableList.of(this.editButton, this.loadButton);
         }
+
+        protected void checkLoaded() {
+            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
+        }
     }
 
     public abstract static class Entry extends ContainerObjectSelectionList.Entry<ProfilesList.Entry> {
         public Entry() {
         }
+
+        abstract void checkLoaded();
     }
 }

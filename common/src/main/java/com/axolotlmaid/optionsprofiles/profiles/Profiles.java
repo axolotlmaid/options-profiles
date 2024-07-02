@@ -129,8 +129,6 @@ public class Profiles {
     }
 
     public static boolean isProfileLoaded(String profileName) {
-        boolean profileLoaded = false;
-
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
 
         List<Path> optionFiles = new ArrayList<>();
@@ -145,10 +143,7 @@ public class Profiles {
         try {
             for (Path optionFile : optionFiles) {
                 Path profileOptions = profile.resolve(optionFile.getFileName());
-
-                if (FileUtils.contentEquals(optionFile.toFile(), profileOptions.toFile())) {
-                    profileLoaded = true;
-                } else {
+                if (!FileUtils.contentEquals(optionFile.toFile(), profileOptions.toFile())) {
                     return false;
                 }
             }
@@ -157,7 +152,7 @@ public class Profiles {
             return false;
         }
 
-        return profileLoaded;
+        return true;
     }
 
     private static void loadOptionFile(String profileName, Path options) {
