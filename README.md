@@ -4,27 +4,45 @@
 [![Curseforge](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/curseforge_64h.png?raw=true)](https://curseforge.com/minecraft/mc-mods/options-profiles)
 [![GitHub](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/git_64h.png?raw=true)](https://github.com/AxolotlMaid/options-profiles)
 
-Options Profiles lets you load and save your options as profiles from in-game.
-
-## Frequently Asked Questions
-- If you would like a version ported, open an issue.
-- Versions 1.1 require Architectury API, however versions 1.2+ does not.
-- You may use this mod in modpacks / clients with credit.
-- You can find other versions in the branches.<br/>
-
-Contact: hello@axolotlmaid.com
-
+Options Profiles is a Minecraft mod that lets you load and save your options as profiles from in-game.
 
 ## Features
-- Profiles are saved in a folder called "options-profiles" in the specified ".minecraft" directory.
-- Sodium and Optifine support
-- Forge and Fabric support
-- Resource packs support
-- Save current options
-- Edit profiles in-game (deleting, renaming, overwriting)
+- Save and load profiles in-game
+- Load specific options (like only load keybinds, resource packs or FOV and GUI scale)
+- Edit profiles in-game (deleting, renaming, overwriting, pick options  to only load)
+- Fabric, NeoForge, Forge support
+- Third party mod support (see below)
+
+## Mod Support
+Options Profiles supports these mods which means you can create and load profiles with them and the mod will load their configuration.
+
+- Sodium
+- Sodium Extra
+- Embeddium
+- Distant Horizons
+- OptiFine
+
+If you would like support for another mod, open an issue.
+
+## Frequently Asked Questions
+- Can you port [version]?
+    > Open an issue in the GitHub repository.
+- Can I use this in my modpack?
+    > You may use this mod in modpacks with credit.
+- Where are the profiles saved?
+    > Profiles are saved in a folder called "options-profiles" in the specified ".minecraft" directory.
+- Where can I find the source code for older versions?
+    > You can find them in the branches.
+- Dependencies?
+    > Versions 1.1 require Architectury API, however versions 1.2+ do not.
+- For any other questions, create an issue or contact me at hello@axolotlmaid.com
 
 ## Gallery
 
-Profiles Menu              | Edit Profile Screen       | Options Screen
-:-------------------------:|:-------------------------:|:-------------------------:
-<img src="gallery/profiles-menu.png" alt="profiles list" width="500"/> | <img src="gallery/edit-profile-screen.png" alt="edit profile screen" width="500"/> | <img src="gallery/options-screen.png" alt="options screen" width="500"/>
+Profiles Menu              | Edit Profile Screen       
+:-------------------------:|:-------------------------:
+<img src="gallery/profiles-menu.png" alt="profiles list"/> | <img src="gallery/edit-profile-screen.png" alt="edit profile screen"/>
+
+Options Toggle Menu        | Options Screen     
+:-------------------------:|:-------------------------:
+<img src="gallery/options-toggle-menu.png" alt="options toggle menu"/> | <img src="gallery/options-screen.png" alt="options screen"/>
