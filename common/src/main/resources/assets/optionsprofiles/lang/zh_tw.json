@@ -1,0 +1,18 @@
+{
+  "gui.optionsprofiles.profiles-menu": "配置預設",
+  "gui.optionsprofiles.save-current-options": "保存目前配置",
+  "gui.optionsprofiles.load-profile": "✔（載入）",
+  "gui.optionsprofiles.edit-profile": "✎（編輯）",
+
+  "gui.optionsprofiles.editing-profile-title": "正在編輯：",
+  "gui.optionsprofiles.profile-name-text": "預設名稱",
+  "gui.optionsprofiles.overwrite-options": "覆蓋",
+  "gui.optionsprofiles.overwrite-options.tooltip": "將配置文件選項替換為您目前的選項",
+  "gui.optionsprofiles.rename-profile": "重新命名",
+  "gui.optionsprofiles.delete-profile": "刪除",
+
+  "gui.optionsprofiles.options-toggle": "選擇要切換的選項",
+  "gui.optionsprofiles.options-toggle.tooltip": "選擇您要載入到此配置文件中的選項",
+  "gui.optionsprofiles.all-on": "全部 開啟",
+  "gui.optionsprofiles.all-off": "全部 關閉"
+}
