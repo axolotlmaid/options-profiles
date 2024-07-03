@@ -22,7 +22,7 @@ public class MixinOptionsScreen extends Screen {
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.profiles-menu"),
                                 (button) -> this.minecraft.setScreen(new ProfilesScreen(this)))
-                        .width(100)
+                        .width(75)
                         .pos(5, 5)
                         .build()
         );

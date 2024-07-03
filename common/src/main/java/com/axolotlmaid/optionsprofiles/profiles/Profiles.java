@@ -1,6 +1,10 @@
 package com.axolotlmaid.optionsprofiles.profiles;
 
 import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import com.axolotlmaid.optionsprofiles.profiles.loaders.EmbeddiumLoader;
+import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
+import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumLoader;
+import com.seibel.distanthorizons.core.config.ConfigBase;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
@@ -18,6 +22,8 @@ public class Profiles {
     public static final Path OPTIFINE_OPTIONS_FILE = Paths.get("optionsof.txt");
     public static final Path SODIUM_OPTIONS_FILE = Paths.get("config/sodium-options.json");
     public static final Path SODIUM_EXTRA_OPTIONS_FILE = Paths.get("config/sodium-extra-options.json");
+    public static final Path EMBEDDIUM_OPTIONS_FILE = Paths.get("config/embeddium-options.json");
+    public static final Path DISTANT_HORIZONS_OPTIONS_FILE = Paths.get("config/DistantHorizons.toml");
 
     // This function goes through every profile and updates / adds the configuration file if it doesn't exist
     public static void updateProfiles() {
@@ -112,6 +118,8 @@ public class Profiles {
         copyOptionFile(profile, OPTIFINE_OPTIONS_FILE);
         copyOptionFile(profile, SODIUM_OPTIONS_FILE);
         copyOptionFile(profile, SODIUM_EXTRA_OPTIONS_FILE);
+        copyOptionFile(profile, EMBEDDIUM_OPTIONS_FILE);
+        copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
 
         // Add every option value to configuration
         try (Stream<String> lines = Files.lines(profileOptions)) {
@@ -138,6 +146,8 @@ public class Profiles {
         Optional.of(OPTIFINE_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(SODIUM_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
+        Optional.of(EMBEDDIUM_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
+        Optional.of(DISTANT_HORIZONS_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
 
         // Check if the original option file and the profile option file have the same content
         try {
@@ -237,8 +247,13 @@ public class Profiles {
     public static void loadProfile(String profileName) {
         loadOptionFile(profileName, OPTIONS_FILE);
         loadOptionFile(profileName, OPTIFINE_OPTIONS_FILE);
-        loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumConfigLoader::load);
-        loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraConfigLoader::load);
+        loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
+        loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
+        loadOptionFile(profileName, EMBEDDIUM_OPTIONS_FILE, EmbeddiumLoader::load);
+
+        // Distant Horizons
+        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);
+        ConfigBase.INSTANCE.configFileINSTANCE.loadFromFile();
     }
 
     public static void renameProfile(String profileName, String newProfileName) {
