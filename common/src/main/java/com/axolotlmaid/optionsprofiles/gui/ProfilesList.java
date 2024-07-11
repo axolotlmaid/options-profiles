@@ -25,7 +25,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
     final ProfilesScreen profilesScreen;
 
     public ProfilesList(ProfilesScreen profilesScreen, Minecraft minecraft) {
-        super(minecraft, profilesScreen.width + 45, profilesScreen.height, 20, profilesScreen.height - 32, 20);
+        super(minecraft, profilesScreen.width + 45, profilesScreen.height, 20, profilesScreen.height - 48, 20);
         this.profilesScreen = profilesScreen;
 
         refreshEntries();

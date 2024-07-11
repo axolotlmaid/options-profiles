@@ -1,9 +1,5 @@
 architectury {
-    common(rootProject.enabled_platforms.split(","))
-}
-
-loom {
-    accessWidenerPath = file("src/main/resources/optionsprofiles.accesswidener")
+    common rootProject.enabled_platforms.split(',')
 }
 
 repositories {
@@ -21,26 +17,14 @@ repositories {
 }
 
 dependencies {
-    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-    // Do NOT use other classes from fabric loader
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
+    // which get remapped to the correct annotations on each platform.
+    // Do NOT use other classes from Fabric Loader.
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
-    // sodium
-    modImplementation "maven.modrinth:sodium:mc1.18.2-0.4.1"
-}
-
-publishing {
-    publications {
-        mavenCommon(MavenPublication) {
-            artifactId = rootProject.archives_base_name
-            from components.java
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
+    // Mod implementations
+    modImplementation "maven.modrinth:sodium:mc1.18.2-0.4.1"            // Sodium
+    modImplementation "maven.modrinth:sodium-extra:mc1.18.2-0.4.18"     // Sodium Extra
+    modImplementation "maven.modrinth:embeddium:0.3.18+mc1.18.2"        // Embeddium
+    modImplementation "maven.modrinth:distanthorizons:2.1.2-a-1.18.2"   // Distant Horizons
 }

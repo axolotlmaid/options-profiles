@@ -27,7 +27,7 @@ public class EditProfileScreen extends Screen {
         this.addRenderableWidget(this.profileNameEdit);
 
         this.addRenderableWidget(new Button(this.width / 2 - 50, this.height - 85, 100, 20, new TranslatableComponent("gui.optionsprofiles.overwrite-options"), (button) -> {
-            Profiles.writeOptionsFilesIntoProfile(profileName);
+            Profiles.writeProfile(profileName, true);
             this.minecraft.setScreen(this.lastScreen);
         }));
 

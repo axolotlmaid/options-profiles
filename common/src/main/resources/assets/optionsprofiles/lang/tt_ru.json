@@ -7,8 +7,14 @@
   "gui.optionsprofiles.editing-profile-title": "Профильне үзгәртү: ",
   "gui.optionsprofiles.profile-name-text": "Профиль исеме",
   "gui.optionsprofiles.overwrite-options": "перезапись",
+  "gui.optionsprofiles.overwrite-options.tooltip": "Профиль вариантларын хәзерге вариантларыгыз белән алыштыра",
   "gui.optionsprofiles.rename-profile": "переименовывать",
   "gui.optionsprofiles.delete-profile": "бетерү",
+
+  "gui.optionsprofiles.options-toggle": "Күчерү вариантларын сайлагыз",
+  "gui.optionsprofiles.options-toggle.tooltip": "Бу профильгә йөгерергә теләгән вариантларны сайлагыз",
+  "gui.optionsprofiles.all-on": "Барысын да кабызыгыз",
+  "gui.optionsprofiles.all-off": "Барысын да сүндерегез",
 
   "modmenu.summaryTranslation.options-profiles": "Хәзерге көйләүләр профильләрен саклагыз һәм уеннан чыгусыз йөкләгез.",
   "modmenu.descriptionTranslation.options-profiles": "Хәзерге көйләүләр профильләрен сакларга һәм уеннан чыгусыз йөкләргә рөхсәт итә торган мод."

@@ -2,13 +2,13 @@ pluginManagement {
     repositories {
         maven { url "https://maven.fabricmc.net/" }
         maven { url "https://maven.architectury.dev/" }
-        maven { url "https://maven.minecraftforge.net/" }
+        maven { url "https://files.minecraftforge.net/maven/" }
         gradlePluginPortal()
     }
 }
 
-include("common")
-include("fabric")
-include("forge")
+rootProject.name = 'optionsprofiles-v1.3-1.18.2'
 
-rootProject.name = "optionsprofiles-v1.1-1.18.2"
+include 'common'
+include 'fabric'
+include 'forge'
