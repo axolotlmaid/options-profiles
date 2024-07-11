@@ -1,10 +1,10 @@
 package com.axolotlmaid.optionsprofiles.profiles;
 
 import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import com.axolotlmaid.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.EmbeddiumLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumLoader;
-import com.seibel.distanthorizons.core.config.ConfigBase;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
@@ -250,10 +250,7 @@ public class Profiles {
         loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
         loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
         loadOptionFile(profileName, EMBEDDIUM_OPTIONS_FILE, EmbeddiumLoader::load);
-
-        // Distant Horizons
-        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);
-        ConfigBase.INSTANCE.configFileINSTANCE.loadFromFile();
+        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);
     }
 
     public static void renameProfile(String profileName, String newProfileName) {
