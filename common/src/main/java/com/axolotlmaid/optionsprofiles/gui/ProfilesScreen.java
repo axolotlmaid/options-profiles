@@ -21,20 +21,36 @@ public class ProfilesScreen extends Screen {
         this.profilesList = new ProfilesList(this, this.minecraft);
         this.addWidget(this.profilesList);
 
-        // buttons
-        this.addRenderableWidget(new Button(this.width / 2 - 155, this.height - 29, 150, 20, new TranslatableComponent("gui.optionsprofiles.save-current-options"), (button) -> {
-            Profiles.createProfile();
-            this.profilesList.refreshEntries();
-        }));
+        this.addRenderableWidget(
+                new Button(
+                        this.width / 2 - 155,
+                        this.height - 29,
+                        150,
+                        20,
+                        new TranslatableComponent("gui.optionsprofiles.save-current-options"),(button) -> {
+                    Profiles.createProfile();
+                    this.profilesList.refreshEntries();
+                }
+                )
+        );
 
-        this.addRenderableWidget(new Button(this.width / 2 + 5, this.height - 29, 150, 20, CommonComponents.GUI_DONE, (button) -> {
-            this.minecraft.setScreen(this.lastScreen);
-        }));
+        this.addRenderableWidget(
+                new Button(
+                        this.width / 2 + 5,
+                        this.height - 29,
+                        150,
+                        20,
+                        CommonComponents.GUI_DONE,
+                        (button) -> {
+                            this.minecraft.setScreen(this.lastScreen);
+                        }
+                )
+        );
     }
 
     public void render(PoseStack poseStack, int mouseX, int mouseY, float delta) {
         this.profilesList.render(poseStack, mouseX, mouseY, delta);
-        GuiComponent.drawCenteredString(poseStack, this.font, this.title, this.width / 2, 12, 16777215);
+        GuiComponent.drawCenteredString(poseStack, this.font, this.title, this.width / 2, 8, 16777215);
         super.render(poseStack, mouseX, mouseY, delta);
     }
 }

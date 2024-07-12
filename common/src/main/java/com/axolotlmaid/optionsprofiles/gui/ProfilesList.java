@@ -1,5 +1,7 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import com.axolotlmaid.optionsprofiles.profiles.ProfileConfiguration;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,15 +19,15 @@ import net.minecraft.network.chat.TranslatableComponent;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.ProfileEntry> {
     final ProfilesScreen profilesScreen;
 
     public ProfilesList(ProfilesScreen profilesScreen, Minecraft minecraft) {
-        super(minecraft, profilesScreen.width + 45, profilesScreen.height, 20, profilesScreen.height - 48, 20);
+        super(minecraft, profilesScreen.width + 45, profilesScreen.height, 20, profilesScreen.height - 32, 20);
         this.profilesScreen = profilesScreen;
 
         refreshEntries();
@@ -34,15 +36,20 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
     public void refreshEntries() {
         this.clearEntries();
 
-        Path profilesDirectory = Paths.get("options-profiles/");
-
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(profilesDirectory)) {
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Profiles.PROFILES_DIRECTORY)) {
+            List<Path> profileList = new ArrayList<>();
             for (Path profile : directoryStream) {
-                this.addEntry(new ProfilesList.ProfileEntry(profile.getFileName().toString()));
+                profileList.add(profile);
+            }
+
+            // Sort the list alphabetically based on the profile names
+            profileList.sort(Comparator.comparing(p -> p.getFileName().toString()));
+
+            for (Path profile : profileList) {
+                this.addEntry(new ProfilesList.ProfileEntry(new TextComponent(profile.getFileName().toString())));
             }
         } catch (Exception e) {
-            System.out.println("An error occurred when listing profiles.");
-            e.printStackTrace();
+            OptionsProfilesMod.LOGGER.error("An error occurred when listing profiles", e);
         }
     }
 
@@ -51,51 +58,69 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
     }
 
     public int getRowWidth() {
-        return super.getRowWidth() + 32;
+        return 340;
     }
 
     public class ProfileEntry extends ContainerObjectSelectionList.Entry<ProfilesList.ProfileEntry> {
-        private final String profileName;
+        private final Component profileName;
         private final Button editButton;
         private final Button loadButton;
 
-        ProfileEntry(String profileName) {
+        ProfileEntry(Component profileName) {
             this.profileName = profileName;
 
-            this.editButton = new Button(0, 0, 75, 20, new TranslatableComponent("gui.optionsprofiles.edit-profile"), (button) -> {
-                minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName));
-            });
+            this.editButton = new Button(
+                    0,
+                    0,
+                    75,
+                    20,
+                    new TranslatableComponent("gui.optionsprofiles.edit-profile"),
+                    (button) -> {
+                        minecraft.setScreen(new EditProfileScreen(profilesScreen, profileName));
+                    }
+            );
 
-            this.loadButton = new Button(0, 0, 75, 20, new TranslatableComponent("gui.optionsprofiles.load-profile"), (button) -> {
-                Profiles.loadProfile(profileName);
+            this.loadButton = new Button(
+                    0,
+                    0,
+                    75,
+                    20,
+                    new TranslatableComponent("gui.optionsprofiles.load-profile"),
+                    (button) -> {
+                        Profiles.loadProfile(profileName.getString());
 
-                minecraft.options.load();
-                minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
-                minecraft.reloadResourcePacks();
+                        minecraft.options.load();
 
-                minecraft.options.save();
+                        if (ProfileConfiguration.get(profileName.getString()).getOptionsToLoad().contains("resourcePacks")) {
+                            minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
+                            minecraft.reloadResourcePacks();
+                        }
 
-                button.active = false;
-            });
+                        minecraft.options.save();
 
-            this.loadButton.active = !Profiles.isProfileLoaded(profileName);
+                        button.active = false;
+                    }
+            );
+
+            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
         }
 
         @Override
         public void render(PoseStack poseStack, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             Font fontRenderer = ProfilesList.this.minecraft.font;
 
+            int posX = ProfilesList.this.getScrollbarPosition() - this.loadButton.getWidth() - 10;
+            int posY = y - 2;
             int textY = y + entryHeight / 2;
 
-            Objects.requireNonNull(ProfilesList.this.minecraft.font);
-            GuiComponent.drawString(poseStack, fontRenderer, this.profileName, x - 50, textY - 9 / 2, 16777215);
+            GuiComponent.drawString(poseStack, fontRenderer, this.profileName, x, textY - 9 / 2, 16777215);
 
-            this.editButton.x = x + 115;
-            this.editButton.y = y;
+            this.editButton.x = posX - this.editButton.getWidth();
+            this.editButton.y = posY;
             this.editButton.render(poseStack, mouseX, mouseY, tickDelta);
 
-            this.loadButton.x = x + 190;
-            this.loadButton.y = y;
+            this.loadButton.x = posX;
+            this.loadButton.y = posY;
             this.loadButton.render(poseStack, mouseX, mouseY, tickDelta);
         }
 

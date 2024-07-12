@@ -26,11 +26,13 @@ import java.util.stream.Stream;
 public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggleList.Entry> {
     private final String profileName;
     private final ProfileConfiguration profileConfiguration;
+    private final OptionsToggleScreen optionsToggleScreen;
 
     public OptionsToggleList(OptionsToggleScreen optionsToggleScreen, Minecraft minecraft, String profileName) {
         super(minecraft, optionsToggleScreen.width, optionsToggleScreen.height, 20, optionsToggleScreen.height - 32, 20);
-        this.profileConfiguration = optionsToggleScreen.profileConfiguration;
         this.profileName = profileName;
+        this.profileConfiguration = optionsToggleScreen.profileConfiguration;
+        this.optionsToggleScreen = optionsToggleScreen;
 
         refreshEntries(false, false);
     }
@@ -81,10 +83,12 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
 
     public class OptionEntry extends Entry {
         private final Component optionKey;
+        private final Component optionValue;
         private final CycleButton<Boolean> toggleButton;
 
         OptionEntry(String optionKey, String optionValue, boolean toggled) {
             this.optionKey = new TextComponent(optionKey);
+            this.optionValue = new TextComponent(optionValue);
 
             this.toggleButton = CycleButton.onOffBuilder(toggled).displayOnlyValue().create(0, 0, 44, 20, TextComponent.EMPTY, (button, boolean_) -> {
                 List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
@@ -100,9 +104,6 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
 
                 profileConfiguration.setOptionsToLoad(optionsToLoad);
             });
-
-            // Set tooltip to the option value (e.g. "ao" will show "true")
-//            this.toggleButton.renderToolTip(Tooltip.create(Component.literal(optionValue)));
 
             if (toggled) {
                 this.toggleButton.setMessage(this.toggleButton.getMessage().copy().withStyle(ChatFormatting.GREEN));    // Set the button's color to green
@@ -123,6 +124,12 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
             this.toggleButton.x = posX;
             this.toggleButton.y = posY;
             this.toggleButton.render(poseStack, mouseX, mouseY, tickDelta);
+            this.toggleButton.renderToolTip(poseStack, mouseX, mouseY);
+
+            // Set tooltip to the option value (e.g. "ao" will show "true") | even though it's non-existent in this version
+            if (this.toggleButton.isHoveredOrFocused()) {
+                optionsToggleScreen.renderTooltip(poseStack, optionValue, mouseX, mouseY);
+            }
         }
 
         public List<? extends GuiEventListener> children() {

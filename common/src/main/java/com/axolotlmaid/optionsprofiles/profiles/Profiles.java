@@ -2,8 +2,7 @@ package com.axolotlmaid.optionsprofiles.profiles;
 
 import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
-//import com.axolotlmaid.optionsprofiles.profiles.loaders.EmbeddiumLoader;
-//import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
+import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumLoader;
 import org.apache.commons.io.FileUtils;
 
@@ -248,7 +247,7 @@ public class Profiles {
         loadOptionFile(profileName, OPTIONS_FILE);
         loadOptionFile(profileName, OPTIFINE_OPTIONS_FILE);
         loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
-//        loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
+        loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
 //        loadOptionFile(profileName, EMBEDDIUM_OPTIONS_FILE, EmbeddiumLoader::load);
         loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);
     }

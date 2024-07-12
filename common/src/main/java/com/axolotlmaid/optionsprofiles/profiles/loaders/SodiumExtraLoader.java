@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.flashyreese.mods.sodiumextra.client.SodiumExtraClientMod;
 import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraGameOptions;
-import me.jellysquid.mods.sodium.client.SodiumClientMod;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.FileReader;
