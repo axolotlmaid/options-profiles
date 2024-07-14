@@ -121,18 +121,20 @@ public class Profiles {
         copyOptionFile(profile, EMBEDDIUM_OPTIONS_FILE);
         copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
 
-        // Add every option value to configuration
-        try (Stream<String> lines = Files.lines(profileOptions)) {
-            List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
+        if (!overwriting) {
+            // Add every option value to configuration
+            try (Stream<String> lines = Files.lines(profileOptions)) {
+                List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
 
-            lines.forEach((line) -> {
-                String[] option = line.split(":");
-                optionsToLoad.add(option[0]);
-            });
+                lines.forEach((line) -> {
+                    String[] option = line.split(":");
+                    optionsToLoad.add(option[0]);
+                });
 
-            profileConfiguration.save();
-        } catch (IOException e) {
-            OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when adding options to the configuration file", profileName, e);
+                profileConfiguration.save();
+            } catch (IOException e) {
+                OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when adding options to the configuration file", profileName, e);
+            }
         }
     }
 
