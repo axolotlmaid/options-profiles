@@ -250,7 +250,9 @@ public class Profiles {
         loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
         loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
         loadOptionFile(profileName, EMBEDDIUM_OPTIONS_FILE, EmbeddiumLoader::load);
-        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);
+        
+        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);     // Overwrite / load original Disant Horizons option file
+        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);        // Tell Distant Horizons mod to reload configuration
     }
 
     public static void renameProfile(String profileName, String newProfileName) {
