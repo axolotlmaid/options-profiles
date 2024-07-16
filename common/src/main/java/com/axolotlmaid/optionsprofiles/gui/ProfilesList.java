@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entry> {
+public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.ProfileEntry> {
     private final ProfilesScreen profilesScreen;
 
     public ProfilesList(ProfilesScreen profilesScreen, Minecraft minecraft) {
@@ -53,7 +53,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
     }
 
     public void checkEntriesLoaded() {
-        this.children().forEach(Entry::checkLoaded);
+        this.children().forEach(ProfileEntry::checkLoaded);
     }
 
     protected int getScrollbarPosition() {
@@ -64,7 +64,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         return 340;
     }
 
-    public class ProfileEntry extends Entry {
+    public class ProfileEntry extends ContainerObjectSelectionList.Entry<ProfilesList.ProfileEntry> {
         private final Component profileName;
         private final Button editButton;
         private final Button loadButton;
@@ -126,12 +126,5 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Entr
         protected void checkLoaded() {
             this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
         }
-    }
-
-    public abstract static class Entry extends ContainerObjectSelectionList.Entry<ProfilesList.Entry> {
-        public Entry() {
-        }
-
-        abstract void checkLoaded();
     }
 }
