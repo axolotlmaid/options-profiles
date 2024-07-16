@@ -4,15 +4,18 @@ import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 public class ProfilesScreen extends OptionsSubScreen {
+    private Screen optionsLastScreen;
     public ProfilesList profilesList;
 
-    public ProfilesScreen(Screen lastScreen) {
+    public ProfilesScreen(Screen lastScreen, Screen optionsLastScreen) {
         super(lastScreen, null, Component.translatable("gui.optionsprofiles.profiles-menu"));
+        this.optionsLastScreen = optionsLastScreen;
     }
 
     protected void addOptions() {}
@@ -39,6 +42,10 @@ public class ProfilesScreen extends OptionsSubScreen {
                                 (button -> this.onClose()))
                         .build()
         );
+    }
+
+    public void onClose() {
+        this.minecraft.setScreen(new OptionsScreen(optionsLastScreen, this.minecraft.options));
     }
 
     protected void repositionElements() {
