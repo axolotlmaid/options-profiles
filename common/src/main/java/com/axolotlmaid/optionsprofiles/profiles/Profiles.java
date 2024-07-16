@@ -93,6 +93,7 @@ public class Profiles {
 
             try {
                 Files.copy(options, profileOptions);
+                OptionsProfilesMod.LOGGER.info("[Profile '{}']: Copied file '{}'", profile.getFileName().toString(), options.getFileName().toString());
             } catch (IOException e) {
                 OptionsProfilesMod.LOGGER.error("[Profile '{}']: Unable to copy '{}'", profile.getFileName().toString(), options.getFileName().toString(), e);
             }
@@ -103,14 +104,19 @@ public class Profiles {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
         Path profileOptions = profile.resolve("options.txt");
 
-        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
-
         if (overwriting) {
-            try {
-                // Removes old option files
-                FileUtils.cleanDirectory(profile.toFile());
+            try (Stream<Path> files = Files.list(profile)) {
+                files.filter(file -> !file.getFileName().toString().equals("configuration.json"))
+                        .forEach(file -> {
+                            try {
+                                Files.delete(file);
+                                OptionsProfilesMod.LOGGER.info("[Profile '{}']: Deleted file '{}'", profileName, file.getFileName().toString());
+                            } catch (IOException e) {
+                                OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when trying to delete the file '{}'", profileName, file.getFileName().toString(), e);
+                            }
+                        });
             } catch (IOException e) {
-                OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when clearing old options files", profileName, e);
+                OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when deleting old options files.", profileName, e);
             }
         }
 
@@ -122,6 +128,8 @@ public class Profiles {
         copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
 
         if (!overwriting) {
+            ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+
             // Add every option value to configuration
             try (Stream<String> lines = Files.lines(profileOptions)) {
                 List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
