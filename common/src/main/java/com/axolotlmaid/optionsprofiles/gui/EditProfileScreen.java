@@ -108,5 +108,10 @@ public class EditProfileScreen extends Screen {
     public void onClose() {
         this.minecraft.setScreen(this.profilesScreen);
         this.profilesScreen.profilesList.refreshEntries();
+
+        // Checks if the configuration still exists and wasn't deleted
+        if (Files.exists(Profiles.PROFILES_DIRECTORY.resolve(profileName.getString()).resolve("configuration.json"))) {
+            this.profileConfiguration.save();
+        }
     }
 }
