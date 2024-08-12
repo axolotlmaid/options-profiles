@@ -17,8 +17,7 @@ public class ProfileConfiguration {
     private static Path configurationFile;
     private static String profileName;
 
-    public static int configurationVersion = 1;     // Used to update configuration in later revisions
-    private int version = configurationVersion;     // ^ same here - this variable is used to show it in the configuration.json file
+    private boolean loadOnStartup = false;
     private List<String> optionsToLoad = new ArrayList<>();
 
     public ProfileConfiguration save() {
@@ -59,12 +58,12 @@ public class ProfileConfiguration {
         return configuration;
     }
 
-    public int getVersion() {
-        return version;
+    public boolean isLoadOnStartup() {
+        return loadOnStartup;
     }
 
-    public void setVersion(int version) {
-        this.version = version;
+    public void setLoadOnStartup(boolean loadOnStartup) {
+        this.loadOnStartup = loadOnStartup;
     }
 
     public List<String> getOptionsToLoad() {

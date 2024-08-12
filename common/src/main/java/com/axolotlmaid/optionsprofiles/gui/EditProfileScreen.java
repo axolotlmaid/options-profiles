@@ -1,11 +1,9 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.profiles.ProfileConfiguration;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.StringWidget;
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LayoutSettings;
 import net.minecraft.client.gui.layouts.LinearLayout;
@@ -13,10 +11,13 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
+import java.nio.file.Files;
+
 public class EditProfileScreen extends Screen {
     private final ProfilesScreen profilesScreen;
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 24, 33);
 
+    private final ProfileConfiguration profileConfiguration;
     private final Component profileName;
     private EditBox profileNameEdit;
 
@@ -24,6 +25,7 @@ public class EditProfileScreen extends Screen {
         super(Component.literal(Component.translatable("gui.optionsprofiles.editing-profile-title").getString() + profileName.getString()));
         this.profilesScreen = profilesScreen;
         this.profileName = profileName;
+        this.profileConfiguration = ProfileConfiguration.get(profileName.getString());
     }
 
     protected void init() {
@@ -49,7 +51,6 @@ public class EditProfileScreen extends Screen {
                                     this.onClose();
                                 })
                         .size(150, 20)
-                        .pos(this.width / 2 - 75, 145)
                         .tooltip(Tooltip.create(Component.translatable("gui.optionsprofiles.overwrite-options.tooltip")))
                         .build(),
                 LayoutSettings::alignHorizontallyCenter
@@ -62,7 +63,6 @@ public class EditProfileScreen extends Screen {
                                     this.minecraft.setScreen(new EditProfileScreen(profilesScreen, Component.literal(this.profileNameEdit.getValue())));
                                 })
                         .size(150, 20)
-                        .pos(this.width / 2 - 75, 166)
                         .build(),
                 LayoutSettings::alignHorizontallyCenter
         );
@@ -71,10 +71,19 @@ public class EditProfileScreen extends Screen {
                                 Component.translatable("gui.optionsprofiles.options-toggle").append("..."),
                                 (button) -> this.minecraft.setScreen(new OptionsToggleScreen(this, profileName)))
                         .size(150, 20)
-                        .pos(this.width / 2 - 75, 187)
                         .tooltip(Tooltip.create(Component.translatable("gui.optionsprofiles.options-toggle.tooltip")))
                         .build(),
                 LayoutSettings::alignHorizontallyCenter
+        );
+        linearLayoutButtons.addChild(
+                Checkbox.builder(
+                        Component.literal("Load on startup"),
+                        this.font
+                )
+                        .selected(profileConfiguration.isLoadOnStartup())
+                        .onValueChange((checkbox, value) -> profileConfiguration.setLoadOnStartup(value))
+                        .build(),
+                (layoutSettings) -> layoutSettings.alignHorizontallyCenter().paddingTop(5)
         );
 
         this.layout.addToFooter(
