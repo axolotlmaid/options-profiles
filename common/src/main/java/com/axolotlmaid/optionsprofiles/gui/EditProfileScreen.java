@@ -70,7 +70,7 @@ public class EditProfileScreen extends Screen {
         linearLayoutButtons.addChild(
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.options-toggle").append("..."),
-                                (button) -> this.minecraft.setScreen(new OptionsToggleScreen(this, profileName)))
+                                (button) -> this.minecraft.setScreen(new OptionsToggleScreen(this, profileName, profileConfiguration)))
                         .size(150, 20)
                         .tooltip(Tooltip.create(Component.translatable("gui.optionsprofiles.options-toggle.tooltip")))
                         .build(),

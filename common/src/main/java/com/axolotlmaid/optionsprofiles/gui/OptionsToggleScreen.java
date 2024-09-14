@@ -14,10 +14,10 @@ public class OptionsToggleScreen extends OptionsSubScreen {
     private OptionsToggleList optionsToggleList;
     public ProfileConfiguration profileConfiguration;
 
-    protected OptionsToggleScreen(Screen lastScreen, Component profileName) {
+    protected OptionsToggleScreen(Screen lastScreen, Component profileName, ProfileConfiguration profileConfiguration) {
         super(lastScreen, null, Component.literal(Component.translatable("gui.optionsprofiles.options-toggle").append(": ").getString() + profileName.getString()));
         this.profileName = profileName;
-        this.profileConfiguration = ProfileConfiguration.get(profileName.getString());
+        this.profileConfiguration = profileConfiguration;
     }
 
     protected void addOptions() {}
