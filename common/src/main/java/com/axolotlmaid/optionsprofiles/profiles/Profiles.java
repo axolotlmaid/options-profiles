@@ -5,28 +5,46 @@ import com.axolotlmaid.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.EmbeddiumLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumLoader;
+import nl.enjarai.shared_resources.api.GameResourceHelper;
+import nl.enjarai.shared_resources.util.GameResourceConfig;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Profiles {
-    public static final Path PROFILES_DIRECTORY = Paths.get("options-profiles/");
-    public static final Path OPTIONS_FILE = Paths.get("options.txt");
+    public static Path PROFILES_DIRECTORY = Paths.get("options-profiles/");
+    public static Path OPTIONS_FILE = Paths.get("options.txt");
     public static final Path OPTIFINE_OPTIONS_FILE = Paths.get("optionsof.txt");
     public static final Path SODIUM_OPTIONS_FILE = Paths.get("config/sodium-options.json");
     public static final Path SODIUM_EXTRA_OPTIONS_FILE = Paths.get("config/sodium-extra-options.json");
     public static final Path EMBEDDIUM_OPTIONS_FILE = Paths.get("config/embeddium-options.json");
     public static final Path DISTANT_HORIZONS_OPTIONS_FILE = Paths.get("config/DistantHorizons.toml");
 
-    // This function goes through every profile and updates / adds the configuration file if it doesn't exist
-    public static void updateProfiles() {
+    public Profiles() {
+        // Create profiles directory
+        PROFILES_DIRECTORY = Paths.get("options-profiles/");
+
+        if (Files.notExists(PROFILES_DIRECTORY)) {
+            try {
+                Files.createDirectory(PROFILES_DIRECTORY);
+            } catch (IOException e) {
+                OptionsProfilesMod.LOGGER.error("An error occurred when creating the 'options-profiles' directory.", e);
+            }
+        }
+
+        // Set profiles directory if Shared Resources mod is installed
+        Path sharedResourcesPath = GameResourceHelper.getPathFor(SharedResourcesProfiles.SHARED_RESOURCES_PROFILES_DIRECTORY);
+
+        if (sharedResourcesPath != null) {
+            PROFILES_DIRECTORY = sharedResourcesPath;
+            OPTIONS_FILE = sharedResourcesPath.getParent().resolve("options.txt");
+        }
+
+        // Goes through every profile and adds the configuration file if it doesn't exist
         try (Stream<Path> paths = Files.list(PROFILES_DIRECTORY)) {
             paths.filter(Files::isDirectory)
                     .forEach(path -> {
@@ -34,36 +52,47 @@ public class Profiles {
 
                         // This gets the configuration but also creates the configuration file if it is not there
                         ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
-                        List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
+                        Path profile = PROFILES_DIRECTORY.resolve(profileName);
+                        Path profileOptions = profile.resolve(OPTIONS_FILE.getFileName());
 
-                        // Checks for updates to the configuration
-                        if (profileConfiguration.getVersion() != ProfileConfiguration.configurationVersion) {
-                            Path configurationFile = path.resolve("configuration.json");
+                        // Add every option value to configuration
+                        try (Stream<String> lines = Files.lines(profileOptions)) {
+                            List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
 
-                            try {
-                                Files.delete(configurationFile);
-                            } catch (IOException e) {
-                                OptionsProfilesMod.LOGGER.error("[Profile '{}']: Error deleting configuration file", profileName, e);
-                            }
+                            lines.forEach((line) -> {
+                                String[] option = line.split(":");
+                                optionsToLoad.add(option[0]);
+                            });
 
-                            // Create the configuration.json again thus updating it
-                            profileConfiguration = ProfileConfiguration.get(profileName);
-
-                            // Add player's old configuration
-                            profileConfiguration.setOptionsToLoad(optionsToLoad);
-
-                            // Save configuration
                             profileConfiguration.save();
+                        } catch (IOException e) {
+                            OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when adding options to the configuration file", profileName, e);
                         }
 
-                        OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile configuration updated / added", profileName);
+                        OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile configuration added", profileName);
                     });
         } catch (IOException e) {
             OptionsProfilesMod.LOGGER.error("An error occurred when updating profiles", e);
         }
+
+        // Loading profiles on startup
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Profiles.PROFILES_DIRECTORY)) {
+            for (Path profile : directoryStream) {
+                String profileName = profile.getFileName().toString();
+                ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+
+                if (profileConfiguration.isLoadOnStartup()) {
+                    OptionsProfilesMod.PROFILES_INSTANCE.loadProfile(profileName);
+                }
+            }
+        } catch (Exception e) {
+            OptionsProfilesMod.LOGGER.error("An error occurred when loading startup profiles", e);
+        }
+
+        return;
     }
 
-    public static void createProfile() {
+    public void createProfile() {
         String profileName = "Profile 1";
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
 
@@ -87,7 +116,7 @@ public class Profiles {
         }
     }
 
-    private static void copyOptionFile(Path profile, Path options) {
+    private void copyOptionFile(Path profile, Path options) {
         if (Files.exists(options)) {
             Path profileOptions = profile.resolve(options.getFileName());
 
@@ -100,7 +129,7 @@ public class Profiles {
         }
     }
 
-    public static void writeProfile(String profileName, boolean overwriting) {
+    public void writeProfile(String profileName, boolean overwriting) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
         Path profileOptions = profile.resolve("options.txt");
 
@@ -146,13 +175,13 @@ public class Profiles {
         }
     }
 
-    public static boolean isProfileLoaded(String profileName) {
+    public boolean isProfileLoaded(String profileName) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
 
         List<Path> optionFiles = new ArrayList<>();
         optionFiles.add(OPTIONS_FILE);
 
-        // The next few lines check if the specified file exists. If so, it adds it to the optionFiles ArrayList.
+        // These lines check if the specified file exists. If so, it adds it to the optionFiles ArrayList.
         Optional.of(OPTIFINE_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(SODIUM_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
@@ -175,7 +204,7 @@ public class Profiles {
         return true;
     }
 
-    private static void loadOptionFile(String profileName, Path options) {
+    private void loadOptionFile(String profileName, Path options) {
         ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
 
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
@@ -244,7 +273,7 @@ public class Profiles {
         }
     }
 
-    private static void loadOptionFile(String profileName, Path options, Consumer<Path> loader) {
+    private void loadOptionFile(String profileName, Path options, Consumer<Path> loader) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
         Path profileOptions = profile.resolve(options.getFileName());
 
@@ -254,7 +283,7 @@ public class Profiles {
         }
     }
 
-    public static void loadProfile(String profileName) {
+    public void loadProfile(String profileName) {
         loadOptionFile(profileName, OPTIONS_FILE);
         loadOptionFile(profileName, OPTIFINE_OPTIONS_FILE);
         loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
@@ -265,7 +294,7 @@ public class Profiles {
         loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);        // Tell Distant Horizons mod to reload configuration
     }
 
-    public static void renameProfile(String profileName, String newProfileName) {
+    public void renameProfile(String profileName, String newProfileName) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
         Path newProfile = PROFILES_DIRECTORY.resolve(newProfileName);
 
@@ -282,7 +311,7 @@ public class Profiles {
         }
     }
 
-    public static void deleteProfile(String profileName) {
+    public void deleteProfile(String profileName) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
 
         try {

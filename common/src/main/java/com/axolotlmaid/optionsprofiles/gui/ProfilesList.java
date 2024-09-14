@@ -81,7 +81,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
             this.loadButton = Button.builder(
                             Component.translatable("gui.optionsprofiles.load-profile"),
                             (button) -> {
-                                Profiles.loadProfile(profileName.getString());
+                                OptionsProfilesMod.PROFILES_INSTANCE.loadProfile(profileName.getString());
 
                                 minecraft.options.load();
 
@@ -124,7 +124,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
         }
 
         protected void checkLoaded() {
-            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
+            this.loadButton.active = !OptionsProfilesMod.PROFILES_INSTANCE.isProfileLoaded(profileName.getString());
         }
     }
 }

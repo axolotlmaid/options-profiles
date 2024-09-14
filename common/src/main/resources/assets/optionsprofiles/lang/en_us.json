@@ -1,4 +1,6 @@
 {
+  "gui.optionsprofiles": "Options Profiles",
+
   "gui.optionsprofiles.profiles-menu": "Profiles",
   "gui.optionsprofiles.save-current-options": "Save Current Options",
   "gui.optionsprofiles.load-profile": "✔ (Load)",

@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
@@ -10,7 +11,7 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 public class ProfilesScreen extends OptionsSubScreen {
-    private Screen optionsLastScreen;
+    private final Screen optionsLastScreen;
     public ProfilesList profilesList;
 
     public ProfilesScreen(Screen lastScreen, Screen optionsLastScreen) {
@@ -31,7 +32,7 @@ public class ProfilesScreen extends OptionsSubScreen {
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.save-current-options"),
                                 (button -> {
-                                    Profiles.createProfile();
+                                    OptionsProfilesMod.PROFILES_INSTANCE.createProfile();
                                     this.profilesList.refreshEntries();
                                 }))
                         .build()

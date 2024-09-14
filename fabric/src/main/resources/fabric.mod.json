@@ -18,6 +18,9 @@
   "entrypoints": {
     "main": [
       "com.axolotlmaid.optionsprofiles.fabric.OptionsProfilesModFabric"
+    ],
+    "shared-resources": [
+      "com.axolotlmaid.optionsprofiles.profiles.SharedResourcesProfiles"
     ]
   },
   "mixins": [

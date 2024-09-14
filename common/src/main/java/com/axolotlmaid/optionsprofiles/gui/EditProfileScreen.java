@@ -1,5 +1,6 @@
 package com.axolotlmaid.optionsprofiles.gui;
 
+import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.axolotlmaid.optionsprofiles.profiles.ProfileConfiguration;
 import com.axolotlmaid.optionsprofiles.profiles.Profiles;
 import net.minecraft.ChatFormatting;
@@ -47,7 +48,7 @@ public class EditProfileScreen extends Screen {
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.overwrite-options"),
                                 (button) -> {
-                                    Profiles.writeProfile(profileName.getString(), true);
+                                    OptionsProfilesMod.PROFILES_INSTANCE.writeProfile(profileName.getString(), true);
                                     this.onClose();
                                 })
                         .size(150, 20)
@@ -59,7 +60,7 @@ public class EditProfileScreen extends Screen {
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.rename-profile"),
                                 (button) -> {
-                                    Profiles.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
+                                    OptionsProfilesMod.PROFILES_INSTANCE.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
                                     this.minecraft.setScreen(new EditProfileScreen(profilesScreen, Component.literal(this.profileNameEdit.getValue())));
                                 })
                         .size(150, 20)
@@ -98,7 +99,7 @@ public class EditProfileScreen extends Screen {
                                 Component.translatable("gui.optionsprofiles.delete-profile")
                                         .withStyle(ChatFormatting.RED),
                                 (button) -> {
-                                    Profiles.deleteProfile(profileName.getString());
+                                    OptionsProfilesMod.PROFILES_INSTANCE.deleteProfile(profileName.getString());
                                     this.onClose();
                                 })
                         .width(50)
