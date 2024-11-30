@@ -38,12 +38,10 @@ public class SodiumLoader {
         SodiumClientMod.options().performance.useFogOcclusion = configuration.performance.use_fog_occlusion;
         SodiumClientMod.options().performance.useBlockFaceCulling = configuration.performance.use_block_face_culling;
         SodiumClientMod.options().performance.useNoErrorGLContext = configuration.performance.use_no_error_g_l_context;
-        //sorting_enabled_v2
+        SodiumClientMod.options().performance.sortingEnabled = configuration.performance.sorting_enabled_v2;
 
         SodiumClientMod.options().notifications.hasClearedDonationButton = configuration.notifications.has_cleared_donation_button;
         SodiumClientMod.options().notifications.hasSeenDonationPrompt = configuration.notifications.has_seen_donation_prompt;
-
-        System.out.println(SodiumClientMod.options().quality.leavesQuality);
 
         try {
             SodiumGameOptions.writeToDisk(SodiumClientMod.options());
@@ -78,6 +76,7 @@ public class SodiumLoader {
             public boolean use_fog_occlusion;
             public boolean use_block_face_culling;
             public boolean use_no_error_g_l_context;
+            public boolean sorting_enabled_v2;
         }
 
         public static class Notifications {
