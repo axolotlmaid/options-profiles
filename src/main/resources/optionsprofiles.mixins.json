@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.trafficlunar.optionsprofiles.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"MixinOptionsScreen"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
