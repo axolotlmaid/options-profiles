@@ -56,8 +56,8 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
         this.children().forEach(ProfileEntry::checkLoaded);
     }
 
-    protected int getScrollbarPosition() {
-        return super.getScrollbarPosition() + 15;
+    protected int scrollBarX() {
+        return super.scrollBarX() + 15;
     }
 
     public int getRowWidth() {
@@ -102,7 +102,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
         public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             Font fontRenderer = ProfilesList.this.minecraft.font;
 
-            int posX = ProfilesList.this.getScrollbarPosition() - this.loadButton.getWidth() - 10;
+            int posX = ProfilesList.this.scrollBarX() - this.loadButton.getWidth() - 10;
             int posY = y - 2;
             int textY = y + entryHeight / 2;
 
