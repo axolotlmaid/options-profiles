@@ -91,6 +91,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
                                 }
 
                                 minecraft.options.save();
+                                minecraft.levelRenderer.allChanged();
 
                                 ProfilesList.this.checkEntriesLoaded();
                                 button.active = false;

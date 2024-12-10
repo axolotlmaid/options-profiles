@@ -3,8 +3,8 @@ package com.axolotlmaid.optionsprofiles.profiles.loaders;
 import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import me.jellysquid.mods.sodium.client.SodiumClientMod;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
+import net.caffeinemc.mods.sodium.client.SodiumClientMod;
+import net.caffeinemc.mods.sodium.client.gui.SodiumGameOptions;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,6 +38,7 @@ public class SodiumLoader {
         SodiumClientMod.options().performance.useFogOcclusion = configuration.performance.use_fog_occlusion;
         SodiumClientMod.options().performance.useBlockFaceCulling = configuration.performance.use_block_face_culling;
         SodiumClientMod.options().performance.useNoErrorGLContext = configuration.performance.use_no_error_g_l_context;
+        SodiumClientMod.options().performance.sortingEnabled = configuration.performance.sorting_enabled_v2;
 
         SodiumClientMod.options().notifications.hasClearedDonationButton = configuration.notifications.has_cleared_donation_button;
         SodiumClientMod.options().notifications.hasSeenDonationPrompt = configuration.notifications.has_seen_donation_prompt;
@@ -75,6 +76,7 @@ public class SodiumLoader {
             public boolean use_fog_occlusion;
             public boolean use_block_face_culling;
             public boolean use_no_error_g_l_context;
+            public boolean sorting_enabled_v2;
         }
 
         public static class Notifications {
