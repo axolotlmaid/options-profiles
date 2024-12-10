@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -145,6 +146,7 @@ public class Profiles {
 
     public static boolean isProfileLoaded(String profileName) {
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
+        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
 
         List<Path> optionFiles = new ArrayList<>();
         optionFiles.add(OPTIONS_FILE);
@@ -159,8 +161,32 @@ public class Profiles {
         try {
             for (Path optionFile : optionFiles) {
                 Path profileOptions = profile.resolve(optionFile.getFileName());
-                if (!FileUtils.contentEquals(optionFile.toFile(), profileOptions.toFile())) {
-                    return false;
+
+                if (optionFile.getFileName().equals(OPTIONS_FILE)) {
+                    try (Stream<String> lines = Files.lines(optionFile)) {
+                        List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
+                        AtomicBoolean loaded = new AtomicBoolean(false);
+
+                        lines.forEach((line) -> {
+                            String[] option = line.split(":");
+
+                            if (optionsToLoad.contains(option[0])) {
+                                try (Stream<String> profileLines = Files.lines(profileOptions)) {
+                                    loaded.set(profileLines.anyMatch(profileLine -> profileLine.equals(line)));
+                                } catch (IOException e) {
+                                    OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when checking each line in options.txt if the profiles is loaded", profileName, e);
+                                }
+                            }
+                        });
+
+                        return loaded.get();
+                    } catch (IOException e) {
+                        OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when opening options.txt to check if the profile is loaded", profileName, e);
+                    }
+                } else {
+                    if (!FileUtils.contentEquals(optionFile.toFile(), profileOptions.toFile())) {
+                        return false;
+                    }
                 }
             }
         } catch (IOException e) {
