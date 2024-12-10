@@ -18,7 +18,6 @@ Options Profiles supports these mods which means you can create and load profile
 
 - Sodium
 - Sodium Extra
-- Embeddium
 - Distant Horizons
 - OptiFine
 
