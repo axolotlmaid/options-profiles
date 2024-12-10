@@ -40,7 +40,8 @@ public class SodiumExtraLoader {
         SodiumExtraClientMod.options().particleSettings.otherMap = configuration.particle_settings.other;
 
         SodiumExtraClientMod.options().detailSettings.sky = configuration.detail_settings.sky;
-        SodiumExtraClientMod.options().detailSettings.sunMoon = configuration.detail_settings.sun_moon;
+        SodiumExtraClientMod.options().detailSettings.sun = configuration.detail_settings.sun;
+        SodiumExtraClientMod.options().detailSettings.moon = configuration.detail_settings.moon;
         SodiumExtraClientMod.options().detailSettings.stars = configuration.detail_settings.stars;
         SodiumExtraClientMod.options().detailSettings.rainSnow = configuration.detail_settings.rain_snow;
         SodiumExtraClientMod.options().detailSettings.biomeColors = configuration.detail_settings.biome_colors;
@@ -110,7 +111,8 @@ public class SodiumExtraLoader {
 
         public static class DetailSettings {
             public boolean sky;
-            public boolean sun_moon;
+            public boolean sun;
+            public boolean moon;
             public boolean stars;
             public boolean rain_snow;
             public boolean biome_colors;
