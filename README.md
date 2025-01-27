@@ -2,7 +2,7 @@
 
 [![Modrinth](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/modrinth_64h.png?raw=true)](https://modrinth.com/mod/options-profiles)
 [![Curseforge](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/curseforge_64h.png?raw=true)](https://curseforge.com/minecraft/mc-mods/options-profiles)
-[![GitHub](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/git_64h.png?raw=true)](https://github.com/AxolotlMaid/options-profiles)
+[![GitHub](https://github.com/intergrav/devins-badges/blob/v3/assets/cozy/available/git_64h.png?raw=true)](https://github.com/trafficlunar/options-profiles)
 
 Options Profiles is a Minecraft mod that lets you load and save your options as profiles from in-game.
 
@@ -18,6 +18,7 @@ Options Profiles supports these mods which means you can create and load profile
 
 - Sodium
 - Sodium Extra
+- Iris
 - Distant Horizons
 - OptiFine
 
@@ -34,7 +35,7 @@ If you would like support for another mod, open an issue.
     > You can find them in the branches.
 - Dependencies?
     > Versions 1.1 require Architectury API, however versions 1.2+ do not.
-- For any other questions, create an issue or contact me at hello@axolotlmaid.com
+- For any other questions, create an issue or contact me at hello@trafficlunar.net
 
 ## Gallery
 
