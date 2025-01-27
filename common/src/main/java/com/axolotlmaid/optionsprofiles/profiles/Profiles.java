@@ -2,6 +2,7 @@ package com.axolotlmaid.optionsprofiles.profiles;
 
 import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
+import com.axolotlmaid.optionsprofiles.profiles.loaders.IrisLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
 import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumLoader;
 import org.apache.commons.io.FileUtils;
@@ -22,6 +23,7 @@ public class Profiles {
     public static final Path OPTIFINE_OPTIONS_FILE = Paths.get("optionsof.txt");
     public static final Path SODIUM_OPTIONS_FILE = Paths.get("config/sodium-options.json");
     public static final Path SODIUM_EXTRA_OPTIONS_FILE = Paths.get("config/sodium-extra-options.json");
+    public static final Path IRIS_OPTIONS_FILE = Paths.get("config/iris.properties");
     public static final Path DISTANT_HORIZONS_OPTIONS_FILE = Paths.get("config/DistantHorizons.toml");
 
     // This function goes through every profile and updates / adds the configuration file if it doesn't exist
@@ -123,6 +125,7 @@ public class Profiles {
         copyOptionFile(profile, OPTIFINE_OPTIONS_FILE);
         copyOptionFile(profile, SODIUM_OPTIONS_FILE);
         copyOptionFile(profile, SODIUM_EXTRA_OPTIONS_FILE);
+        copyOptionFile(profile, IRIS_OPTIONS_FILE);
         copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
 
         if (!overwriting) {
@@ -155,6 +158,7 @@ public class Profiles {
         Optional.of(OPTIFINE_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(SODIUM_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
+        Optional.of(IRIS_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
         Optional.of(DISTANT_HORIZONS_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
 
         // Check if the original option file and the profile option file have the same content
@@ -281,9 +285,10 @@ public class Profiles {
         loadOptionFile(profileName, OPTIFINE_OPTIONS_FILE);
         loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
         loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
+        loadOptionFile(profileName, IRIS_OPTIONS_FILE, IrisLoader::load);
         
-        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);     // Overwrite / load original Disant Horizons option file
-        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);        // Tell Distant Horizons mod to reload configuration
+        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);                                 // Overwrite / load original Disant Horizons option file
+        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);    // Tell Distant Horizons mod to reload configuration
     }
 
     public static void renameProfile(String profileName, String newProfileName) {

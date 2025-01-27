@@ -25,5 +25,6 @@ dependencies {
     // Mod implementations
     modImplementation "maven.modrinth:sodium:mc1.21.4-0.6.3-fabric"             // Sodium
     modImplementation "maven.modrinth:sodium-extra:mc1.21.4-0.6.1+fabric"       // Sodium Extra
+    modImplementation "maven.modrinth:iris:1.8.5+1.21.4-fabric"                 // Iris
     modImplementation "maven.modrinth:distanthorizons:2.2.1-a-1.21.1"           // Distant Horizons
 }
